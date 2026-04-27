@@ -1,0 +1,130 @@
+---
+// src/pages/index.astro
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout title="Scan Expert – Precyzyjna Inwentaryzacja i Modelowanie 3D">
+  
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-tag">Precyzja na poziomie milimetra</div>
+    <h1>Skanowanie 3D<br>budynków<br><strong>nowej generacji</strong></h1>
+    <p class="hero-sub">Inwentaryzacja architektoniczna, dokumentacja BIM i cyfrowe bliźniaki z dokładnością do 0,001 m[cite: 3, 55]. Dane dla architektów i inżynierów.</p>
+    <div class="hero-actions">
+      <a href="/kontakt" class="btn-primary">Skontaktuj się</a>
+      <a href="#uslugi" class="btn-ghost">Zobacz ofertę</a>
+    </div>
+    
+    <div class="scan-visual">
+      <div class="scan-dots"></div>
+      <div class="scan-corner"></div><div class="scan-corner"></div>
+      <div class="scan-corner"></div><div class="scan-corner"></div>
+    </div>
+    
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">0.001<span>m</span></span><span class="stat-label">Dokładność skanu [cite: 55]</span></div>
+      <div class="stat-item"><span class="stat-num">0.01<span>mm</span></span><span class="stat-label">Dokładność detali [cite: 77]</span></div>
+      <div class="stat-item"><span class="stat-num">2×</span><span class="stat-label">Skanery Leica [cite: 54]</span></div>
+    </div>
+  </section>
+
+  <section style="padding: 100px 0; background: var(--bg2);">
+    <div class="container">
+      <div class="section-label">Możliwości</div>
+      <h2>Więcej niż tylko <strong>pomiar</strong></h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px;">
+        <div>
+            <h3 style="color: var(--accent); margin-bottom: 15px;">Analiza strukturalna</h3>
+            <p style="color: var(--text2);">Umożliwiamy wykrywanie deformacji, analizę wyboczeń oraz kontrolę osiadania fundamentów[cite: 9, 10, 73]. Wykorzystujemy metodę elementów skończonych (MES) do zaawansowanych ekspertyz inżynierskich[cite: 15, 73].</p>
+        </div>
+        <div>
+            <h3 style="color: var(--accent); margin-bottom: 15px;">Cyfrowy Bliźniak (Digital Twin)</h3>
+            <p style="color: var(--text2);">Tworzymy wierne repliki cyfrowe obiektów, które eliminują błędy ludzkie i zapewniają niezawodność wyników niezależnie od warunków atmosferycznych[cite: 11, 12].</p>
+        </div>
+        <div>
+            <h3 style="color: var(--accent); margin-bottom: 15px;">Szybkość realizacji</h3>
+            <p style="color: var(--text2);">Skracamy czas przygotowania inwentaryzacji i kwerend historycznych z kilku miesięcy do zaledwie kilku dni[cite: 40, 45].</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="uslugi" style="padding: 100px 0;">
+    <div class="container">
+      <div class="section-label">Oferta</div>
+      <h2>Nasze <strong>specjalizacje</strong></h2>
+      <div class="services-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 50px;">
+        
+        <div class="service-card" style="background: var(--bg); padding: 40px;">
+          <span class="service-num">01 /</span>
+          <h3>Skan 3D obiektów budowlanych</h3>
+          <p>Precyzyjna inwentaryzacja kamienic, fasad i zabytków[cite: 38]. Chmura punktów stanowi podstawę do modeli Revit i rysunków .dwg[cite: 51, 52].</p>
+          <a href="/uslugi/skan-3d-budynkow" class="service-link">Szczegóły usługi →</a>
+        </div>
+
+        <div class="service-card" style="background: var(--bg); padding: 40px;">
+          <span class="service-num">02 /</span>
+          <h3>Skanowanie laserowe 3D</h3>
+          <p>Skanowanie metrologiczne z precyzją do 0,01 mm[cite: 77]. Ultra-dokładne modele do analiz odkształceń i inwentaryzacji detali sztukatorskich[cite: 71, 72].</p>
+          <a href="/uslugi/skan-3d" class="service-link">Szczegóły usługi →</a>
+        </div>
+
+        <div class="service-card" style="background: var(--bg); padding: 40px;">
+          <span class="service-num">03 /</span>
+          <h3>Aerofotogrametria</h3>
+          <p>Fotogrametria dronowa połączona z technologią LiDAR[cite: 88, 96]. Tworzenie ortofotoplanów i inwentaryzacja trudno dostępnych obiektów[cite: 49, 100].</p>
+          <a href="/uslugi/aerofotogrametria" class="service-link">Szczegóły usługi →</a>
+        </div>
+
+        <div class="service-card" style="background: var(--bg); padding: 40px;">
+          <span class="service-num">04 /</span>
+          <h3>Druk 3D</h3>
+          <p>Fizyczne makiety budynków i detali w technologii FFF[cite: 22, 25]. Pole robocze 420×300×400 mm i rozdzielczość do 0,05 mm[cite: 31, 32].</p>
+          <a href="/uslugi/druk-3d" class="service-link">Szczegóły usługi →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 100px 0; border-top: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-label">O nas</div>
+      <h2>Inżynierskie <strong>podejście</strong></h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 50px; align-items: center;">
+        <div style="color: var(--text2); line-height: 1.8;">
+          <p style="margin-bottom: 20px;">Jesteśmy firmą prowadzoną przez inżynierów budownictwa, co gwarantuje zrozumienie potrzeb branży i dostarczanie danych gotowych do projektowania[cite: 41, 63, 82].</p>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+              <div style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></div>
+              Skanery renomowanej firmy Leica[cite: 54, 109].
+            </li>
+            <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+              <div style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></div>
+              Szeroka gama materiałów druku (PLA, ABS, Nylon, PET-G, kompozyty)[cite: 32].
+            </li>
+            <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+              <div style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></div>
+              Wsparcie na każdym etapie procesu – od projektu po produkcję[cite: 34, 115].
+            </li>
+          </ul>
+        </div>
+        <div style="background: var(--bg2); padding: 40px; border: 1px solid var(--border); border-radius: var(--radius-lg);">
+          <h3 style="margin-bottom: 20px;">Dane kontaktowe</h3>
+          <p style="font-family: var(--mono); font-size: 14px; margin-bottom: 10px;">PPHU 'JAPIL” JAKUB PILARSKI [cite: 18]</p>
+          <p style="font-family: var(--mono); font-size: 14px; color: var(--text3); margin-bottom: 20px;">NIP: 7272531264 [cite: 18]</p>
+          <a href="/kontakt" class="btn-primary">Napisz do nas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 120px 0; background: var(--surface2); text-align: center;">
+    <div class="container">
+      <h2 style="margin-bottom: 20px;">Masz pytania? <strong>Zadaj je nam!</strong></h2>
+      <p style="color: var(--text2); max-width: 600px; margin: 0 auto 40px;">Nasi eksperci są gotowi, żeby udzielić Ci profesjonalnej odpowiedzi i dobrać technologię do Twojego projektu[cite: 18, 116].</p>
+      <a href="/kontakt" class="btn-primary" style="padding: 18px 48px; font-size: 14px;">Umów się na rozmowę</a>
+    </div>
+  </section>
+
+</MainLayout>

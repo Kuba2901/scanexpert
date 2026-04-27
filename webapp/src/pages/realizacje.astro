@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets'; // Importujemy komponent do zdjęć
+import MainLayout from '../layouts/MainLayout.astro';
+
+const projects = await getCollection('realizacje');
+const sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
+---
+
+<MainLayout title="Realizacje - Scan Expert">
+  <section id="realizacje" style="padding-top: 140px; border-top: none;">
+    <div class="container">
+      <div class="section-label">Realizacje</div>
+      <h2>Nasze<br><strong>projekty</strong></h2>
+      
+      <div class="projects-list">
+        {sortedProjects.map((project, index) => (
+          <div class="project-row" style="grid-template-columns: 80px 180px 1fr auto; align-items: center;">
+            <span class="project-idx">{(index + 1).toString().padStart(2, '0')}</span>
+            
+            {/* Wyświetlanie zdjęcia lub pustego miejsca/placeholdera */}
+            <div style="width: 150px; height: 100px; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); display: flex; align-items: center; justify-content: center;">
+              {project.data.coverImage ? (
+                <Image 
+                  src={project.data.coverImage} 
+                  alt={project.data.imageAlt}
+                  width={300} 
+                  height={200}
+                  style="width: 100%; height: 100%; object-fit: cover;"
+                />
+              ) : (
+                <span style="font-family: var(--mono); font-size: 10px; color: var(--text3);">Brak zdjęcia</span>
+              )}
+            </div>
+
+            <div>
+              <div class="project-title">{project.data.title}</div>
+              <div class="project-addr">{project.data.location}</div>
+            </div>
+
+            <div class="project-tags">
+              {project.data.accentTags?.map(tag => (
+                <span class="tag accent">{tag}</span>
+              ))}
+              {project.data.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>
