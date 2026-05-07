@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Druk 3D – Scan Expert</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .druk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+  }
+  .druk-card {
+    background: var(--dark3);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .druk-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--orange));
+    transform: scaleX(0);
+    transition: transform 0.35s ease;
+    transform-origin: left;
+  }
+  .druk-card:hover::before { transform: scaleX(1); }
+  .druk-card:hover { background: var(--mid); }
+  .druk-icon { width: 42px; height: 42px; color: var(--orange); margin-bottom: 20px; }
+  .druk-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem; font-weight: 600;
+    letter-spacing: 0.04em; color: #fff;
+    margin-bottom: 12px;
+  }
+  .druk-desc { font-size: 0.88rem; line-height: 1.75; color: var(--text-muted); }
+
+  .spec-full {
+    margin-top: 60px;
+    background: var(--dark2);
+    padding: 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .spec-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 48px;
+    align-items: start;
+  }
+  .spec-big-box {
+    background: var(--dark3);
+    border: 1px solid rgba(245,132,31,0.15);
+    padding: 40px;
+  }
+  .spec-big-box .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .spec-big-box .spec-row:last-child { border-bottom: none; }
+  .spec-row-label { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .spec-row-val {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem; font-weight: 600;
+    background: linear-gradient(90deg, var(--red), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.04em;
+  }
+
+  .materials-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .mat-item {
+    background: var(--dark3);
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: background 0.2s;
+  }
+  .mat-item:hover { background: var(--mid); }
+  .mat-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    flex-shrink: 0;
+  }
+  .mat-item span { font-size: 0.9rem; color: var(--text-muted); }
+  .mat-item strong { font-weight: 500; color: #fff; }
+
+  .scan-to-print {
+    padding: 70px 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .stp-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: start;
+    margin-top: 48px;
+  }
+  .stp-steps { display: flex; flex-direction: column; gap: 0; }
+
+  .use-cases {
+    background: var(--dark2);
+    padding: 70px 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .use-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+  }
+  .use-card {
+    background: var(--dark3);
+    padding: 34px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .use-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: linear-gradient(to bottom, var(--red), var(--orange));
+    transition: height 0.4s;
+  }
+  .use-card:hover::before { height: 100%; }
+  .use-card:hover { background: var(--mid); }
+  .use-icon { width: 36px; height: 36px; color: var(--orange); }
+  .use-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: #fff; letter-spacing: 0.04em;
+  }
+  .use-desc { font-size: 0.86rem; line-height: 1.72; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<main>
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-accent"></div>
+    <svg class="page-hero-bg" viewBox="0 0 400 400" fill="none">
+      <rect x="80" y="100" width="240" height="200" stroke="white" stroke-width="1"/>
+      <rect x="110" y="70"  width="240" height="200" stroke="white" stroke-width="1"/>
+      <line x1="80" y1="100" x2="110" y2="70" stroke="white" stroke-width="1"/>
+      <line x1="320" y1="100" x2="350" y2="70" stroke="white" stroke-width="1"/>
+      <line x1="80" y1="300" x2="110" y2="270" stroke="white" stroke-width="1"/>
+      <line x1="320" y1="300" x2="350" y2="270" stroke="white" stroke-width="1"/>
+    </svg>
+    <div class="page-label">Wytwarzanie addytywne</div>
+    <h1 class="page-title">Druk 3D – <em>jak to działa?</em></h1>
+    <p class="page-sub">Przekształcamy modele 3D w fizyczne prototypy, makiety budynków, części zamienne i modele pokazowe. Drukarka FFF z polem roboczym 420×300×400 mm i rozdzielczością do 0,05 mm otwiera nowe możliwości dla budownictwa, edukacji i produkcji.</p>
+  </div>
+
+  <!-- STAT BAR -->
+  <div class="stat-bar reveal" style="margin: 0 60px;">
+    <div class="stat-bar-item">
+      <div class="stat-val">0,05mm</div>
+      <div class="stat-lbl">Rozdzielczość wydruku</div>
+    </div>
+    <div class="stat-bar-item">
+      <div class="stat-val">420×300×400mm</div>
+      <div class="stat-lbl">Pole robocze</div>
+    </div>
+    <div class="stat-bar-item">
+      <div class="stat-val">FFF</div>
+      <div class="stat-lbl">Technologia druku</div>
+    </div>
+    <div class="stat-bar-item">
+      <div class="stat-val">8+</div>
+      <div class="stat-lbl">Dostępnych materiałów</div>
+    </div>
+  </div>
+
+  <!-- GŁÓWNE USŁUGI DRUKU -->
+  <div class="content reveal">
+    <div class="section-label">Oferta druku 3D</div>
+    <h2 class="section-title">Co możemy <em>wydrukować?</em></h2>
+    <p class="section-body">Druk 3D to proces wytwarzania trójwymiarowych obiektów na podstawie zaprojektowanego komputerowo modelu lub zeskanowanego fizycznego obiektu. Dzięki tej technologii jesteśmy w stanie stworzyć makietę budynku, prototyp dowolnego elementu lub odtworzyć detal sztukatorski w sposób bezinwazyjny.</p>
+
+    <div class="druk-grid">
+      <div class="druk-card">
+        <svg class="druk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <div class="druk-title">Makiety budynków</div>
+        <p class="druk-desc">Fizyczne modele budynków lub ich elementów w dowolnej skali. Idealne do wizualizacji projektów, analiz technicznych i prezentacji inwestorskich.</p>
+      </div>
+      <div class="druk-card">
+        <svg class="druk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M7.76 7.76a6 6 0 0 0 0 8.49M16.24 7.76a6 6 0 0 1 0 8.49"/>
+        </svg>
+        <div class="druk-title">Detale sztukatorskie</div>
+        <p class="druk-desc">Odtwarzanie i reprodukcja historycznych ornamentów, sztukaterii i elementów zdobniczych zabytków. Bezinwazyjne, wierne odwzorowanie oryginału.</p>
+      </div>
+      <div class="druk-card">
+        <svg class="druk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+        <div class="druk-title">Projekty Revit & CAD</div>
+        <p class="druk-desc">Wydruki projektów Revit, inżynierskich projektów CAD oraz siatek trójkątów – bezpośrednio z pliku cyfrowego na stół drukarki.</p>
+      </div>
+      <div class="druk-card">
+        <svg class="druk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+          <line x1="12" y1="12" x2="12" y2="16"/>
+          <line x1="10" y1="14" x2="14" y2="14"/>
+        </svg>
+        <div class="druk-title">Produkcja na żądanie</div>
+        <p class="druk-desc">Małe serie produktów lub części zamiennych bez potrzeby tworzenia kosztownych form produkcyjnych. Elastyczność i szybkość realizacji.</p>
+      </div>
+      <div class="druk-card">
+        <svg class="druk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <div class="druk-title">Modele edukacyjne</div>
+        <p class="druk-desc">Modele demonstracyjne i edukacyjne, które ułatwiają zrozumienie skomplikowanych koncepcji budowlanych, konstrukcyjnych i inżynierskich.</p>
+      </div>
+      <div class="druk-card">
+        <svg class="druk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <div class="druk-title">Personalizacja</div>
+        <p class="druk-desc">Dostosowanie produktów do indywidualnych potrzeb klientów. Tworzymy unikatowe i spersonalizowane obiekty, które nie są dostępne nigdzie indziej.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPEC -->
+  <div class="spec-full reveal">
+    <div class="section-label">Specyfikacja techniczna</div>
+    <h2 class="section-title">Precyzja <em>na każdym poziomie</em></h2>
+    <p class="section-body">Do druku 3D wykorzystujemy nowoczesną i bardzo precyzyjną drukarkę w technologii FFF. W zależności od przeznaczenia wydruku dobierzemy odpowiedni materiał spośród szerokiej gamy dostępnych tworzyw.</p>
+
+    <div class="spec-cols">
+      <div>
+        <div class="spec-big-box">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:600;color:#fff;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:24px;opacity:0.6;">Parametry drukarki</div>
+          <div class="spec-row">
+            <span class="spec-row-label">Technologia</span>
+            <span class="spec-row-val">FFF (Fused Filament Fabrication)</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-row-label">Pole robocze (X×Y×Z)</span>
+            <span class="spec-row-val">420 × 300 × 400 mm</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-row-label">Rozdzielczość warstwy</span>
+            <span class="spec-row-val">do 0,05 mm</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-row-label">Dokładność wymiarowa</span>
+            <span class="spec-row-val">± 0,1 mm</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-row-label">Format wejściowy</span>
+            <span class="spec-row-val">.stl / .obj / .3mf / Revit</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:600;color:#fff;margin-bottom:16px;letter-spacing:0.04em;">Dostępne materiały</h3>
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:20px;line-height:1.7;">Dysponujemy szeroką gamą materiałów drukarskich. Dobór materiału uzależniamy od przeznaczenia wydruku – wytrzymałości, elastyczności, odporności na temperaturę i warunki zewnętrzne.</p>
+        <div class="materials-grid">
+          <div class="mat-item"><div class="mat-dot"></div><div><strong>PLA</strong><span style="display:block;font-size:0.78rem;">Modele, makiety</span></div></div>
+          <div class="mat-item"><div class="mat-dot"></div><div><strong>ABS</strong><span style="display:block;font-size:0.78rem;">Wytrzymałość, temp.</span></div></div>
+          <div class="mat-item"><div class="mat-dot"></div><div><strong>Nylon (PA)</strong><span style="display:block;font-size:0.78rem;">Elastyczność</span></div></div>
+          <div class="mat-item"><div class="mat-dot"></div><div><strong>PET-G</strong><span style="display:block;font-size:0.78rem;">Przejrzystość</span></div></div>
+          <div class="mat-item"><div class="mat-dot"></div><div><strong>TPU</strong><span style="display:block;font-size:0.78rem;">Guma, uszczelki</span></div></div>
+          <div class="mat-item"><div class="mat-dot"></div><div><strong>PVA</strong><span style="display:block;font-size:0.78rem;">Materiał podporowy</span></div></div>
+          <div class="mat-item"><div class="mat-dot"></div><div><strong>Kompozyty</strong><span style="display:block;font-size:0.78rem;">Włókno węglowe</span></div></div>
+          <div class="mat-item"><div class="mat-dot"></div><div><strong>PP / PA+</strong><span style="display:block;font-size:0.78rem;">Przemysłowe</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCAN TO PRINT -->
+  <div class="scan-to-print reveal">
+    <div class="section-label">Workflow</div>
+    <h2 class="section-title">Scan to <em>Print</em></h2>
+    <p class="section-body">Drukujemy makiety zeskanowanych obiektów z bardzo dużą dokładnością. Cały proces – od fizycznego obiektu do gotowej makiety – realizujemy kompleksowo w jednym miejscu.</p>
+
+    <div class="stp-layout">
+      <div class="stp-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h4>Skanowanie obiektu</h4>
+            <p>Skaner 3D tworzy precyzyjną chmurę punktów rzeczywistego obiektu – budynku, detalu architektonicznego lub elementu maszyny.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h4>Przetwarzanie do modelu</h4>
+            <p>Chmura punktów jest przekształcana w siatkę trójkątów (mesh), a następnie w plik gotowy do druku (.stl / .3mf) lub model Revit.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h4>Dobór materiału i skali</h4>
+            <p>Dobieramy optymalny materiał i skalę wydruku w zależności od przeznaczenia – model prezentacyjny, makieta edukacyjna lub prototyp funkcjonalny.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div>
+            <h4>Wydruk i wykończenie</h4>
+            <p>Gotowy wydruk przechodzi przez proces obróbki wykończeniowej – szlifowanie, gruntowanie lub malowanie zgodnie z wymaganiami klienta.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Wydruki projektów REVIT
+        </div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;color:#fff;line-height:1.1;margin-bottom:18px;">Szeroki wybór materiałów i doradztwo</h3>
+        <p style="font-size:0.92rem;line-height:1.8;color:var(--text-muted);margin-bottom:28px;">Nasz zespół ekspertów pomoże Ci wybrać najlepsze rozwiązania dla Twoich potrzeb, oferując wsparcie na każdym etapie procesu – od projektowania po gotowy produkt. Dysponujemy szeroką gamą materiałów drukarskich, w tym tworzywa sztuczne i kompozyty.</p>
+        <div class="check-list">
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Wydruki projektów Revit w skali
+          </div>
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Wydruki inżynierskich projektów CAD
+          </div>
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Wydruki siatek trójkątów (mesh)
+          </div>
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Makiety zeskanowanych obiektów
+          </div>
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Doradztwo w doborze materiału
+          </div>
+        </div>
+        <div style="margin-top:28px;">
+          <a href="kontakt.html" class="btn-primary">Zapytaj o wydruk</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZASTOSOWANIA -->
+  <div class="use-cases reveal">
+    <div class="section-label">Gdzie to stosujemy</div>
+    <h2 class="section-title">Zastosowania <em>druku 3D</em></h2>
+    <p class="section-body">Druk 3D otwiera nowe możliwości dla produkcji, edukacji i prezentacji. Oto najczęstsze zastosowania naszych usług druku.</p>
+
+    <div class="use-grid">
+      <div class="use-card">
+        <svg class="use-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <div class="use-title">Architektura & budownictwo</div>
+        <p class="use-desc">Makiety budynków i osiedli do prezentacji inwestorskich, makiety renowacyjne zabytków, modele do analiz technicznych.</p>
+      </div>
+      <div class="use-card">
+        <svg class="use-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <div class="use-title">Konserwacja zabytków</div>
+        <p class="use-desc">Odtwarzanie zniszczonych lub brakujących detali sztukatorskich, ornamentów i elementów historycznych budowli.</p>
+      </div>
+      <div class="use-card">
+        <svg class="use-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        </svg>
+        <div class="use-title">Przemysł & produkcja</div>
+        <p class="use-desc">Prototypy urządzeń i podzespołów, części zamienne trudno dostępnych elementów, szablony i formy produkcyjne.</p>
+      </div>
+      <div class="use-card">
+        <svg class="use-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        <div class="use-title">Edukacja</div>
+        <p class="use-desc">Modele edukacyjne i demonstracyjne do szkół technicznych, uczelni i ośrodków szkoleniowych – ułatwiają zrozumienie złożonych koncepcji.</p>
+      </div>
+      <div class="use-card">
+        <svg class="use-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div class="use-title">Prezentacje & marketing</div>
+        <p class="use-desc">Unikatowe modele do prezentacji oferty, stoisk targowych i materiałów promocyjnych. Każdy model dopasowany do Twojej marki.</p>
+      </div>
+      <div class="use-card">
+        <svg class="use-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        <div class="use-title">Inżynieria & analiza</div>
+        <p class="use-desc">Modele do testów wytrzymałościowych, wizualizacji naprężeń, sprawdzania kolizji i weryfikacji geometrii elementów przed montażem.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="precision-strip">
+    <strong>Doświadczenie i doradztwo na każdym etapie</strong>
+    <p>Nasz zespół ekspertów pomoże Ci wybrać najlepsze rozwiązania – od wyboru materiału, przez projektowanie, po gotowy fizyczny model.</p>
+    <a href="kontakt.html" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Zamów wycenę druku</a>
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+<script src="nav.js"></script>
+<script>
+  renderNav('druk');
+  renderFooter();
+  initReveal();
+</script>
+</body>
+</html>
