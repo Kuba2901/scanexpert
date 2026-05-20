@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan Expert – Nowy wymiar budownictwa</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Hero overrides */
+  .hero {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    right: -80px; top: 50%;
+    transform: translateY(-50%);
+    width: 680px; height: 680px;
+    opacity: 0.035;
+    animation: slow-spin 34s linear infinite;
+  }
+  @keyframes slow-spin {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to   { transform: translateY(-50%) rotate(360deg); }
+  }
+  .hero-line {
+    position: absolute;
+    left: 0; top: 50%;
+    width: 4px; height: 280px;
+    transform: translateY(-50%);
+    background: linear-gradient(to bottom, transparent, var(--orange), transparent);
+  }
+  .hero-content { max-width: 740px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.73rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    border: 1px solid rgba(245,132,31,0.4);
+    padding: 5px 14px;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    margin-bottom: 28px;
+    animation: fade-up 0.6s ease both;
+  }
+  .hero-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: 0.02em;
+    animation: fade-up 0.65s 0.1s ease both;
+  }
+  .hero-title .t1 { color: #fff; display: block; }
+  .hero-title .t2 {
+    display: block;
+    background: linear-gradient(90deg, var(--red), var(--orange-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    margin-top: 28px;
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 560px;
+    animation: fade-up 0.65s 0.18s ease both;
+  }
+  .hero-btns {
+    margin-top: 44px;
+    display: flex;
+    gap: 18px;
+    animation: fade-up 0.65s 0.26s ease both;
+  }
+  .hero-stats {
+    margin-top: 68px;
+    display: flex;
+    gap: 52px;
+    animation: fade-up 0.65s 0.34s ease both;
+    padding-top: 36px;
+    border-top: 1px solid rgba(245,132,31,0.12);
+  }
+  .stat-num {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .stat-lbl {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Services preview */
+  .services { padding: 80px 60px; background: var(--dark2); position: relative; z-index: 1; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+  }
+  .svc {
+    background: var(--dark3);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .svc::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: linear-gradient(to bottom, var(--red), var(--orange));
+    transition: height 0.4s;
+  }
+  .svc:hover::before { height: 100%; }
+  .svc:hover { background: var(--mid); }
+  .svc-num {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgba(245,132,31,0.07);
+    line-height: 1;
+    margin-bottom: 14px;
+    transition: color 0.3s;
+  }
+  .svc:hover .svc-num { color: rgba(245,132,31,0.18); }
+  .svc-icon { width: 38px; height: 38px; color: var(--orange); margin-bottom: 16px; }
+  .svc-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .svc-desc { font-size: 0.86rem; line-height: 1.72; color: var(--text-muted); }
+  .svc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .svc:hover .svc-link { opacity: 1; }
+</style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-line"></div>
+    <svg class="hero-bg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="80" y="100" width="240" height="200" stroke="white" stroke-width="1"/>
+      <rect x="110" y="70"  width="240" height="200" stroke="white" stroke-width="1"/>
+      <line x1="80"  y1="100" x2="110" y2="70"  stroke="white" stroke-width="1"/>
+      <line x1="320" y1="100" x2="350" y2="70"  stroke="white" stroke-width="1"/>
+      <line x1="80"  y1="300" x2="110" y2="270" stroke="white" stroke-width="1"/>
+      <line x1="320" y1="300" x2="350" y2="270" stroke="white" stroke-width="1"/>
+      <line x1="80" y1="166" x2="320" y2="166" stroke="white" stroke-width="0.4"/>
+      <line x1="80" y1="233" x2="320" y2="233" stroke="white" stroke-width="0.4"/>
+      <line x1="160" y1="100" x2="160" y2="300" stroke="white" stroke-width="0.4"/>
+      <line x1="240" y1="100" x2="240" y2="300" stroke="white" stroke-width="0.4"/>
+      <line x1="110" y1="70" x2="350" y2="70"  stroke="white" stroke-width="0.4"/>
+      <line x1="110" y1="70" x2="110" y2="270" stroke="white" stroke-width="0.4"/>
+    </svg>
+
+    <div class="hero-content">
+      <div class="hero-tag">Nowy wymiar budownictwa</div>
+      <h1 class="hero-title">
+        <span class="t1">Skanowanie 3D</span>
+        <span class="t2">budynków</span>
+      </h1>
+      <p class="hero-sub">Precyzyjna inwentaryzacja architektoniczno-budowlana, modelowanie BIM i cyfrowe bliźniaki. Dostarczamy dane z dokładnością do 0,001 m za pomocą skanerów laserowych Leica.</p>
+      <div class="hero-btns">
+        <a href="skanowanie.html" class="btn-primary">Nasze usługi</a>
+        <a href="kontakt.html"    class="btn-ghost">Wycena projektu</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">0,001m</div>
+          <div class="stat-lbl">Dokładność na 60m</div>
+        </div>
+        <div>
+          <div class="stat-num">2×</div>
+          <div class="stat-lbl">Skanery Leica</div>
+        </div>
+        <div>
+          <div class="stat-num">360°</div>
+          <div class="stat-lbl">Pełne odwzorowanie</div>
+        </div>
+        <div>
+          <div class="stat-num">0,05mm</div>
+          <div class="stat-lbl">Rozdzielczość druku 3D</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="services reveal">
+    <div class="section-label">Co robimy</div>
+    <h2 class="section-title">Kompleksowe usługi <em>pomiarowe i modelowania</em></h2>
+    <p class="section-body">Łączymy zaawansowane technologie skanowania 3D, fotogrametrii i druku 3D, by dostarczać precyzyjne rozwiązania dla architektów, inżynierów i projektantów.</p>
+
+    <div class="services-grid">
+      <a href="skanowanie.html" class="svc">
+        <div class="svc-num">01</div>
+        <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+        <div class="svc-title">Skanowanie Laserowe 3D</div>
+        <p class="svc-desc">Skanowanie budynków, fasad i zabytków. Chmura punktów z milimetrową dokładnością.</p>
+        <span class="svc-link">Dowiedz się więcej →</span>
+      </a>
+      <a href="fotogrametria.html" class="svc">
+        <div class="svc-num">02</div>
+        <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <div class="svc-title">Fotogrametria & Dron</div>
+        <p class="svc-desc">Ortofotoplany i modele 3D z powietrza. Połączenie z technologią LiDAR.</p>
+        <span class="svc-link">Dowiedz się więcej →</span>
+      </a>
+      <a href="druk.html" class="svc">
+        <div class="svc-num">03</div>
+        <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        <div class="svc-title">Druk 3D</div>
+        <p class="svc-desc">Makiety budynków, prototypy detali, modele Revit w fizycznej formie z dokładnością 0,05mm.</p>
+        <span class="svc-link">Dowiedz się więcej →</span>
+      </a>
+      <a href="skanowanie.html" class="svc">
+        <div class="svc-num">04</div>
+        <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <div class="svc-title">Inwentaryzacja & BIM</div>
+        <p class="svc-desc">Precyzyjne rysunki .dwg, modele Revit, dokumentacje powykonawcze i inwentaryzacje.</p>
+        <span class="svc-link">Dowiedz się więcej →</span>
+      </a>
+      <a href="skanowanie.html" class="svc">
+        <div class="svc-num">05</div>
+        <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+          <polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+        </svg>
+        <div class="svc-title">Cyfrowy Bliźniak</div>
+        <p class="svc-desc">Digital twin – cyfrowe repliki obiektów do analiz MES, kontroli osiadania i deformacji.</p>
+        <span class="svc-link">Dowiedz się więcej →</span>
+      </a>
+      <a href="kontakt.html" class="svc">
+        <div class="svc-num">06</div>
+        <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <div class="svc-title">Analizy Inżynierskie</div>
+        <p class="svc-desc">Kontrola odkształceń, wyboczenia, pomiary odchyleń i ekspertyzy budowlane.</p>
+        <span class="svc-link">Zapytaj o wycenę →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="precision-strip" style="position:relative;z-index:1;">
+    <strong>Skracamy czas inwentaryzacji z miesięcy do dni</strong>
+    <p>Nasza firma, prowadzona przez inżynierów budownictwa, eliminuje błędy ludzkie i dostarcza precyzyjne dane w ułamku tradycyjnego czasu realizacji.</p>
+    <a href="kontakt.html" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Bezpłatna wycena</a>
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+<script src="nav.js"></script>
+<script>
+  renderNav('home');
+  renderFooter();
+  initReveal();
+</script>
+</body>
+</html>

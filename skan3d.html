@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skan 3D – Jak to działa – Scan Expert</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 48px;
+  }
+  .analysis-card {
+    background: var(--dark3);
+    padding: 38px 30px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .analysis-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--orange));
+    transform: scaleX(0);
+    transition: transform 0.35s ease;
+    transform-origin: left;
+  }
+  .analysis-card:hover::after { transform: scaleX(1); }
+  .analysis-card:hover { background: var(--mid); }
+  .analysis-icon { width: 42px; height: 42px; color: var(--orange); margin-bottom: 20px; }
+  .analysis-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+  }
+  .analysis-desc { font-size: 0.88rem; line-height: 1.75; color: var(--text-muted); }
+  .analysis-precision {
+    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: rgba(245,132,31,0.08);
+    padding: 4px 10px;
+  }
+
+  .sztukateria-block {
+    background: var(--dark2);
+    padding: 70px 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .sztukateria-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: start;
+    margin-top: 48px;
+  }
+
+  .process-visual {
+    position: relative;
+    padding: 40px;
+    background: var(--dark3);
+    border: 1px solid rgba(245,132,31,0.1);
+  }
+  .process-visual-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 28px;
+  }
+  .pv-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .pv-icon-wrap {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, rgba(232,57,26,0.15), rgba(245,132,31,0.15));
+    border: 1px solid rgba(245,132,31,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .pv-icon-wrap svg { width: 20px; height: 20px; color: var(--orange); }
+  .pv-label { font-size: 0.88rem; color: var(--text-muted); }
+  .pv-label strong { display: block; color: #fff; font-weight: 500; font-size: 0.92rem; }
+  .pv-arrow {
+    text-align: center;
+    color: var(--orange);
+    opacity: 0.4;
+    font-size: 1.2rem;
+    margin: 2px 0 2px 15px;
+  }
+</style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<main>
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-accent"></div>
+    <div class="page-label">Technologia skanowania</div>
+    <h1 class="page-title">Skan 3D – <em>jak to działa?</em></h1>
+    <p class="page-sub">Dzięki innowacyjnej technologii skanowania 3D przenosimy obiekty z przestrzeni fizycznej w wirtualną. Analizy w budownictwie, skanowanie detali sztukatorskich, modelowanie i personalizacja – wszystko w jednym miejscu.</p>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="content reveal">
+    <div class="two-col">
+      <div>
+        <div class="section-label">Proces</div>
+        <h2 class="section-title">Od pomiaru do <em>gotowego modelu</em></h2>
+        <p class="section-body">Tak nowoczesna technologia pozwala klientowi uzyskać dane, o jakich żaden konstruktor jeszcze kilka lat temu nie mógł nawet marzyć. Urządzenia klasy metrologicznej gwarantują dokładność w setnych częściach milimetra.</p>
+
+        <div style="margin-top: 36px;">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div>
+              <h4>Ustawienie skanera</h4>
+              <p>Skaner Leica jest ustawiany na statywie lub montowany mobilnie. Zakres do 360° pozwala objąć całe pomieszczenie lub fasadę z jednego stanowiska.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div>
+              <h4>Pomiar laserowy</h4>
+              <p>Impuls laserowy odbija się od każdej powierzchni, generując miliony punktów pomiarowych z dokładnością do 0,001 m na odległości 60 m.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div>
+              <h4>Rejestracja i scalanie skanów</h4>
+              <p>Skany z wielu stanowisk są łączone w spójną chmurę punktów całego obiektu przy użyciu oprogramowania Leica Cyclone.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div>
+              <h4>Modelowanie i opracowanie</h4>
+              <p>Na podstawie chmury punktów tworzymy modele CAD, Revit, siatki trójkątów lub precyzyjne rysunki .dwg – zależnie od potrzeb klienta.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="process-visual">
+          <div class="process-visual-title">Przepływ danych</div>
+          <div class="pv-row">
+            <div class="pv-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/></svg></div>
+            <div class="pv-label"><strong>Skaner Leica (naziemny / metrologiczny)</strong>Pomiar laserowy 360°, dokładność do 0,001m</div>
+          </div>
+          <div class="pv-arrow">↓</div>
+          <div class="pv-row">
+            <div class="pv-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg></div>
+            <div class="pv-label"><strong>Chmura punktów</strong>Miliony punktów XYZ z wartościami RGB</div>
+          </div>
+          <div class="pv-arrow">↓</div>
+          <div class="pv-row">
+            <div class="pv-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+            <div class="pv-label"><strong>Przetwarzanie w oprogramowaniu</strong>Leica Cyclone, Autodesk Revit, AutoCAD</div>
+          </div>
+          <div class="pv-arrow">↓</div>
+          <div class="pv-row">
+            <div class="pv-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="pv-label"><strong>Dokumentacja końcowa</strong>.dwg / Revit / Chmura / Mesh / Makieta 3D</div>
+          </div>
+        </div>
+
+        <div class="stat-bar" style="margin-top:2px;">
+          <div class="stat-bar-item">
+            <div class="stat-val">0,01mm</div>
+            <div class="stat-lbl">Detale arch.</div>
+          </div>
+          <div class="stat-bar-item">
+            <div class="stat-val">360°</div>
+            <div class="stat-lbl">Zasięg skanera</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ANALIZY W BUDOWNICTWIE -->
+  <div class="content reveal">
+    <div class="section-label">Zastosowania inżynierskie</div>
+    <h2 class="section-title">Analizy <em>w budownictwie</em></h2>
+    <p class="section-body">Dzięki zastosowaniu skanerów klasy metrologicznej jesteśmy w stanie tworzyć ultra-dokładne modele w celu analizy wyboczenia, poszerzenia rys na całej ich długości lub innych odchyleń z wykorzystaniem metody elementów skończonych.</p>
+
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <svg class="analysis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        <div class="analysis-title">Analiza odkształceń</div>
+        <p class="analysis-desc">Pomiar i wizualizacja deformacji elementów konstrukcyjnych, poszerzenia rys na całej długości, wyboczenia stalowych profili.</p>
+        <div class="analysis-precision">Dokładność: 0,01mm</div>
+      </div>
+      <div class="analysis-card">
+        <svg class="analysis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <div class="analysis-title">Kontrola osiadania</div>
+        <p class="analysis-desc">Monitoring osiadania fundamentów i całych budynków w czasie. Porównanie kolejnych skanów ujawnia każde przemieszczenie.</p>
+        <div class="analysis-precision">Powtarzalność: ±0,5mm</div>
+      </div>
+      <div class="analysis-card">
+        <svg class="analysis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div class="analysis-title">Ekspertyzy budowlane</div>
+        <p class="analysis-desc">Ocena stanu technicznego obiektu, prowadzenie ekspertyz, sprawdzanie zgodności wykonania z projektem budowlanym.</p>
+        <div class="analysis-precision">Dokumentacja fotograficzna</div>
+      </div>
+      <div class="analysis-card">
+        <svg class="analysis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>
+        </svg>
+        <div class="analysis-title">Analiza MES</div>
+        <p class="analysis-desc">Generowanie siatek do obliczeń Metodą Elementów Skończonych. Dane z rzeczywistego obiektu zamiast uproszczonego modelu.</p>
+        <div class="analysis-precision">Mesh gotowy do obliczeń</div>
+      </div>
+      <div class="analysis-card">
+        <svg class="analysis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <div class="analysis-title">Kontrole fotogrametryczne</div>
+        <p class="analysis-desc">Monitoring postępów budowy na różnych etapach, weryfikacja kształtu i wymiarów elementów prefabrykowanych.</p>
+        <div class="analysis-precision">Wieloetapowo</div>
+      </div>
+      <div class="analysis-card">
+        <svg class="analysis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <div class="analysis-title">Cyfrowy Bliźniak</div>
+        <p class="analysis-desc">Stworzenie dynamicznej cyfrowej repliki obiektu, aktualizowanej w cyklu życia budynku i wspierającej zarządzanie FM.</p>
+        <div class="analysis-precision">BIM Level 3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SZTUKATERIA -->
+  <div class="sztukateria-block reveal">
+    <div class="section-label">Zabytki & dziedzictwo</div>
+    <h2 class="section-title">Skanowanie detali <em>sztukatorskich</em></h2>
+
+    <div class="sztukateria-layout">
+      <div>
+        <p style="font-size:0.95rem;line-height:1.8;color:var(--text-muted);margin-bottom:20px;">Zabytki architektoniczne często zdobione są wyjątkowymi detalami sztukatorskimi, które wymagają szczególnej uwagi podczas konserwacji i renowacji. Nasze skanowanie 3D pozwala na stworzenie dokładnych modeli cyfrowych tych elementów, co ułatwia proces ich odtworzenia.</p>
+        <p style="font-size:0.95rem;line-height:1.8;color:var(--text-muted);margin-bottom:32px;">Dzięki naszym usługom możemy pomóc w zachowaniu dziedzictwa kulturowego, oferując precyzyjne archiwizowanie elementów, które mogą być trudne do odtworzenia w przyszłości. Dokładność naszych skanerów sięga 0,01 mm, co pozwala uchwycić każdy detal oryginalnego wzoru.</p>
+
+        <div class="check-list">
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Wierne odwzorowanie sztukaterii, ornamentów i detali w skali 1:1
+          </div>
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Bezinwazyjne skanowanie bez kontaktu z oryginalnym obiektem
+          </div>
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Matryca 3D gotowa do odtworzenia brakujących elementów
+          </div>
+          <div class="check-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Archiwizacja cyfrowa zgodna z wytycznymi konserwatorów
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Ochrona dziedzictwa
+        </div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;color:#fff;line-height:1.1;margin-bottom:18px;">Nie ma rzeczy niemożliwych</h3>
+        <p style="font-size:0.92rem;line-height:1.8;color:var(--text-muted);margin-bottom:28px;">Tak nowoczesna technologia pozwala klientowi na uzyskanie danych, o jakich żaden konstruktor jeszcze kilka lat temu nie mógł nawet marzyć. Nasze skanery metrologiczne osiągają dokładność do 0,01 mm – niezbędną przy rekonstrukcji historycznych detali.</p>
+
+        <div class="spec-box" style="margin-top:0;">
+          <div class="spec-item">
+            <div class="spec-val">0,01mm</div>
+            <div class="spec-lbl">Dokładność detali</div>
+          </div>
+          <div class="spec-divider"></div>
+          <div class="spec-item">
+            <div class="spec-val">100%</div>
+            <div class="spec-lbl">Bezinwazyjność</div>
+          </div>
+          <div class="spec-divider"></div>
+          <div class="spec-item">
+            <div class="spec-val">Leica</div>
+            <div class="spec-lbl">Sprzęt klasy premium</div>
+          </div>
+        </div>
+
+        <div style="margin-top:28px;">
+          <a href="kontakt.html" class="btn-primary">Zapytaj o realizację</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="precision-strip">
+    <strong>Inżynierskie podejście do każdego projektu</strong>
+    <p>Jako inżynierowie budownictwa jesteśmy w stanie stworzyć rozwiązanie dla każdego problemu i potrzeby klienta.</p>
+    <a href="kontakt.html" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Skontaktuj się</a>
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+<script src="nav.js"></script>
+<script>
+  renderNav('skan');
+  renderFooter();
+  initReveal();
+</script>
+</body>
+</html>
