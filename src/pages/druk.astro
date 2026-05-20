@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Druk 3D – Scan Expert" activePage="druk">
+  <div class="page-hero">
+    <div class="page-hero-accent"></div>
+    <div class="page-label">Wytwarzanie addytywne</div>
+    <h1 class="page-title">Druk 3D</h1>
+    <p class="page-sub">Przekształcamy modele 3D w fizyczne prototypy, części zamienne czy modele pokazowe, otwierając nowe możliwości dla produkcji, edukacji i prezentacji.</p>
+  </div>
+
+  <div class="content reveal">
+    <div class="two-col">
+      <div>
+        <div class="section-label">Proces</div>
+        <h2 class="section-title">Jak to <em>działa?</em></h2>
+        <p class="section-body">Druk 3D to proces wytwarzania trójwymiarowych, fizycznych obiektów na podstawie zaprojektowanego komputerowo modelu lub zeskanowanego fizycznego obiektu. Dzięki tej technologii jesteśmy w stanie stworzyć makietę budynku, prototyp dowolnego, dostarczonego nam, elementu lub odtworzyć detal sztukatorski w sposób bezinwazyjny. Wykonujemy również wydruki projektów REVIT, projektów inżynierskich CAD, czy siatek trójkątów.</p>
+      </div>
+      <div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:16px;">Wydruki 3D budynków i detali</h3>
+        <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;">Dzięki naszym usługom możliwe jest również tworzenie fizycznych modeli budynków lub ich elementów za pomocą wydruków 3D. Skanowanie 3D umożliwia wierne odwzorowanie zarówno całych konstrukcji, jak i drobnych detali architektonicznych z niezwykłą precyzją. Wydruki te mogą służyć do wizualizacji projektów, analiz technicznych lub celów edukacyjnych.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-cases reveal">
+    <div class="section-label">Możliwości technologii</div>
+    <h2 class="section-title">Nasze <em>usługi</em></h2>
+
+    <div class="use-grid">
+      <div class="use-card">
+        <div class="use-title">Scan to print</div>
+        <p class="use-desc">Drukujemy makiety zeskanowanych obiektów z bardzo dużą dokładnością. Tworzymy projekty Revit oraz ich wydruki.</p>
+      </div>
+      <div class="use-card">
+        <div class="use-title">Produkcja na żądanie</div>
+        <p class="use-desc">Druk 3D umożliwia produkcję małych serii produktów lub części zamiennych na żądanie, eliminując potrzebę tworzenia kosztownych form produkcyjnych.</p>
+      </div>
+      <div class="use-card">
+        <div class="use-title">Personalizacja</div>
+        <p class="use-desc">Oferujemy możliwość dostosowania produktów do indywidualnych potrzeb klientów, tworząc unikatowe i spersonalizowane obiekty.</p>
+      </div>
+      <div class="use-card">
+        <div class="use-title">Edukacja i modele</div>
+        <p class="use-desc">Tworzymy modele edukacyjne i demonstracyjne, które ułatwiają zrozumienie skomplikowanych koncepcji i procesów.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-full reveal">
+    <div class="spec-cols">
+      <div>
+        <div class="section-label">Technologia</div>
+        <h2 class="section-title">Precyzja</h2>
+        <p class="section-body">Do druku 3D wykorzystujemy nowoczesną i bardzo precyzyjną drukarkę w technologii FFF, o obszarze pola roboczego aż 420mm x 300mm x 400mm i rozdzielczości do 0,05mm. W zależności od przeznaczenia wydruku dobierzemy odpowiedni materiał (PLA/ABS/Nylon/PET-G/TPU/PVA/Kompozyty, PP, PA +).</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+        <div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:12px;">Szeroki wybór materiałów</h3>
+          <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;">Dysponujemy szeroką gamą materiałów drukarskich, w tym tworzywa sztuczne, żywice i metale, co pozwala na wybór optymalnych właściwości dla każdego projektu.</p>
+        </div>
+        <div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:12px;">Doświadczenie i doradztwo</h3>
+          <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;">Nasz zespół ekspertów pomoże Ci wybrać najlepsze rozwiązania dla Twoich potrzeb, oferując wsparcie na każdym etapie procesu, od projektowania po produkcję.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .use-cases { background: var(--dark2); padding: 70px 60px; position: relative; z-index: 1; }
+  .use-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 48px; }
+  .use-card { background: var(--dark3); padding: 34px 28px; display: flex; flex-direction: column; gap: 12px; transition: background 0.25s; position: relative; overflow: hidden; }
+  .use-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: linear-gradient(to bottom, var(--red), var(--orange)); transition: height 0.4s; }
+  .use-card:hover::before { height: 100%; }
+  .use-card:hover { background: var(--mid); }
+  .use-title { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 600; color: #fff; letter-spacing: 0.04em; }
+  .use-desc { font-size: 0.95rem; line-height: 1.72; color: var(--text-muted); }
+
+  .spec-full { margin-top: 20px; padding: 70px 60px; position: relative; z-index: 1; }
+  .spec-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+</style>

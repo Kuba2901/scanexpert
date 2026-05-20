@@ -1,0 +1,113 @@
+---
+// src/pages/realizacje.astro
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+// Pobieranie wszystkich realizacji z plików Markdown
+const allRealizacje = await getCollection('realizacje');
+
+// Sortowanie po ID (aby 01, 02, 03 układały się po kolei)
+allRealizacje.sort((a, b) => a.data.id.localeCompare(b.data.id));
+---
+
+<Layout title="Realizacje" activePage="realizacje">
+  <div class="page-hero">
+    <div class="page-hero-accent"></div>
+    <div class="page-label">Portfolio</div>
+    <h1 class="page-title">Nasze <em>realizacje</em></h1>
+    <p class="page-sub">Prezentujemy wybrane projekty zrealizowane dla klientów w Łodzi i regionie...</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">Wszystkie <span id="count-all"></span></button>
+    <button class="filter-btn" data-filter="scan">Skanowanie 3D</button>
+    <button class="filter-btn" data-filter="dwg">Inwentaryzacja .dwg</button>
+    <button class="filter-btn" data-filter="foto">Aerofotogrametria</button>
+    <button class="filter-btn" data-filter="model">Modelowanie 3D</button>
+  </div>
+
+  <div class="results-count">Wyświetlane realizacje: <span id="visible-count">{allRealizacje.length}</span> z {allRealizacje.length}</div>
+
+  <div class="cases-list" id="cases-list">
+    {allRealizacje.map((caseItem) => (
+      <div class="case-card reveal" data-tags={caseItem.data.tags.join(' ')}>
+        <div class="case-img">
+          <div class="case-img-inner" style="padding: 0; background: none;">
+            <Image 
+              src={caseItem.data.coverImage} 
+              alt={caseItem.data.alt} 
+              width={600} 
+              height={400} 
+              style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s;"
+            />
+          </div>
+          <div class="case-num-overlay">{caseItem.data.id}</div>
+        </div>
+        
+        <div class="case-body">
+          <div class="case-top">
+            <div class="case-index">{caseItem.data.title}</div>
+            <div class="case-address">{caseItem.data.address}</div>
+            <div class="case-city">{caseItem.data.city}</div>
+            <div class="case-tags">
+                {caseItem.data.tags.includes('scan') && <span class="tag tag-scan">Skanowanie 3D</span>}
+                {caseItem.data.tags.includes('dwg') && <span class="tag tag-dwg">Dokumentacja / .dwg</span>}
+                {caseItem.data.tags.includes('foto') && <span class="tag tag-foto">Aerofotogrametria</span>}
+                {caseItem.data.tags.includes('model') && <span class="tag tag-model">Modelowanie 3D</span>}
+            </div>
+          </div>
+          
+          <div class="case-bottom">
+            <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:0.06em;">{caseItem.data.description}</div>
+            <div class="case-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+
+    <div class="no-results" id="no-results">Brak realizacji dla wybranego filtra.</div>
+  </div>
+
+  <div class="precision-strip">
+    <strong>Twój projekt może być następny</strong>
+    <p>Skontaktuj się z nami, aby omówić zakres prac i otrzymać bezpłatną wycenę dopasowaną do Twojego obiektu.</p>
+    <a href="/kontakt" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Zapytaj o wycenę</a>
+  </div>
+</Layout>
+
+<script>
+  const cards = document.querySelectorAll('.case-card');
+  const btns  = document.querySelectorAll('.filter-btn');
+  const countEl = document.getElementById('visible-count');
+  const noResults = document.getElementById('no-results');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      let visible = 0;
+      cards.forEach(card => {
+        const tags = (card as HTMLElement).dataset.tags || '';
+        const show = filter === 'all' || tags.includes(filter);
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+
+      if(countEl) countEl.textContent = visible.toString();
+      if(noResults) noResults.classList.toggle('visible', visible === 0);
+    });
+  });
+</script>
+
+<style>
+/* Opcjonalnie: lekki hover na prawdziwych zdjęciach w .case-card */
+.case-card:hover .case-img-inner img {
+    opacity: 1 !important;
+}
+/* Wklej tutaj brakujące style przypisane specyficznie tylko do tej podstrony (np. filtry, liczniki), a ogólne pozostaw w global.css */
+</style>

@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Skanowanie 3D budynków – precyzyjna inwentaryzacja" activePage="home">
+  <section class="hero">
+    <div class="hero-line"></div>
+    <svg class="hero-bg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="80" y="100" width="240" height="200" stroke="white" stroke-width="1"/>
+      <rect x="110" y="70"  width="240" height="200" stroke="white" stroke-width="1"/>
+      <line x1="80"  y1="100" x2="110" y2="70"  stroke="white" stroke-width="1"/>
+      <line x1="320" y1="100" x2="350" y2="70"  stroke="white" stroke-width="1"/>
+      <line x1="80"  y1="300" x2="110" y2="270" stroke="white" stroke-width="1"/>
+      <line x1="320" y1="300" x2="350" y2="270" stroke="white" stroke-width="1"/>
+      <line x1="80" y1="166" x2="320" y2="166" stroke="white" stroke-width="0.4"/>
+      <line x1="80" y1="233" x2="320" y2="233" stroke="white" stroke-width="0.4"/>
+      <line x1="160" y1="100" x2="160" y2="300" stroke="white" stroke-width="0.4"/>
+      <line x1="240" y1="100" x2="240" y2="300" stroke="white" stroke-width="0.4"/>
+      <line x1="110" y1="70" x2="350" y2="70"  stroke="white" stroke-width="0.4"/>
+      <line x1="110" y1="70" x2="110" y2="270" stroke="white" stroke-width="0.4"/>
+    </svg>
+
+    <div class="hero-content">
+      <div class="hero-tag">Precyzyjna inwentaryzacja i modelowanie</div>
+      <h1 class="hero-title">
+        <span class="t1">Skanowanie 3D</span>
+        <span class="t2">budynków</span>
+      </h1>
+      <p class="hero-sub">Skanowanie 3D budynków to nasza specjalność. Dzięki tej technologii dostarczamy precyzyjne dane do inwentaryzacji architektoniczno-budowlanej oraz mapowania terenu. Nasze usługi obejmują także kontrolę osiadania, analizę deformacji konstrukcji oraz dokumentację BIM. Dzięki technologii cyfrowego bliźniaka (digital twin) tworzymy szczegółowe modele 3D, wspierające architektów i inżynierów. Oferujemy również kompleksowe modelowanie 3D i druk 3D, które pozwalają na wizualizację i analizę konstrukcji jeszcze przed realizacją projektu.</p>
+      <div class="hero-btns">
+        <a href="/skanowanie" class="btn-primary">Nasze usługi</a>
+        <a href="/kontakt"    class="btn-ghost">Wycena projektu</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content reveal" style="background: var(--dark2);">
+    <div class="section-label">O naszej metodzie</div>
+    <h2 class="section-title">Skanowanie 3D budynków – <br><em>szybka i dokładna inwentaryzacja</em></h2>
+    <p class="section-body" style="max-width: 800px;">
+      Nowoczesne techniki skanowania 3D pozwalają na precyzyjną inwentaryzację architektoniczno-budowlaną, dokumentację obiektów oraz mapowanie terenu. Dzięki zastosowaniu skanerów laserowych uzyskujemy wysokiej rozdzielczości chmurę punktów, wiernie odwzorowującą detale konstrukcji z milimetrową dokładnością.
+      <br><br>
+      Nasza metoda umożliwia analizę strukturalną, wykrywanie deformacji oraz kontrolę osiadania fundamentów. Skanowanie laserowe jest niezastąpione przy dokumentacji powykonawczej, ocenie wykopów budowlanych oraz przy tworzeniu cyfrowych bliźniaków (digital twin) – cyfrowych replik rzeczywistych obiektów.
+      <br><br>
+      Technologia ta znacząco przewyższa tradycyjne metody pomiarowe, eliminując błędy ludzkie i zapewniając niezawodność wyników niezależnie od warunków atmosferycznych. Dzięki naszym usługom inżynierowie, architekci i projektanci otrzymują precyzyjne dane do dalszej analizy, modelowania 3D i optymalizacji projektów budowlanych.
+    </p>
+  </section>
+
+  <section class="services reveal">
+    <div class="section-label">Co robimy</div>
+    <h2 class="section-title">Nasze główne <em>kompetencje</em></h2>
+
+    <div class="services-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 48px;">
+      <a href="/skanowanie" class="svc">
+        <div class="svc-num">01</div>
+        <div class="svc-title">Skanowanie Laserowe 3D</div>
+        <p class="svc-desc">Wykorzystując najnowocześniejsze technologie, dokładnie skanujemy obiekty budowlane, infrastrukturalne oraz ich elementy, dostarczając dane niezbędne do precyzyjnego modelowania i analizy np. MES.</p>
+        <span class="svc-link">Dowiedz się więcej →</span>
+      </a>
+      
+      <a href="/skanowanie" class="svc">
+        <div class="svc-num">02</div>
+        <div class="svc-title">Skan 3D budynków</div>
+        <p class="svc-desc">Nasze doświadczenie i zaawansowane oprogramowanie umożliwiają tworzenie szczegółowych modeli 3D lub pełnych dokumentacji .dwg, które są fundamentem dla dalszego projektowania i wizualizacji.</p>
+        <span class="svc-link">Dowiedz się więcej →</span>
+      </a>
+
+      <a href="/druk" class="svc">
+        <div class="svc-num">03</div>
+        <div class="svc-title">Druk 3D</div>
+        <p class="svc-desc">Przekształcamy modele 3D w fizyczne prototypy, części zamienne czy modele pokazowe, otwierając nowe możliwości dla produkcji, edukacji i prezentacji.</p>
+        <span class="svc-link">Dowiedz się więcej →</span>
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Zachowaj tu style ze strony głównej (hero, hero-bg, services, svc) z poprzednich odpowiedzi */
+  .hero { min-height: calc(100vh - 80px); display: flex; align-items: center; padding: 80px 60px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; right: -80px; top: 50%; transform: translateY(-50%); width: 680px; height: 680px; opacity: 0.035; animation: slow-spin 34s linear infinite; }
+  @keyframes slow-spin { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
+  .hero-line { position: absolute; left: 0; top: 50%; width: 4px; height: 280px; transform: translateY(-50%); background: linear-gradient(to bottom, transparent, var(--orange), transparent); }
+  .hero-content { max-width: 800px; position: relative; z-index: 1; }
+  .hero-tag { display: inline-block; font-size: 0.73rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(245,132,31,0.4); padding: 5px 14px; clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%); margin-bottom: 28px; }
+  .hero-title { font-family: 'Rajdhani', sans-serif; font-size: clamp(3.2rem, 6.5vw, 5.8rem); font-weight: 700; line-height: 1.0; letter-spacing: 0.02em; }
+  .hero-title .t1 { color: #fff; display: block; }
+  .hero-title .t2 { display: block; background: linear-gradient(90deg, var(--red), var(--orange-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-sub { margin-top: 28px; font-size: 1.08rem; line-height: 1.75; color: var(--text-muted); max-width: 760px; }
+  .hero-btns { margin-top: 44px; display: flex; gap: 18px; }
+
+  .services { padding: 80px 60px; position: relative; z-index: 1; }
+  .services-grid { display: grid; gap: 2px; }
+  .svc { background: var(--dark3); padding: 40px 32px; position: relative; overflow: hidden; transition: background 0.3s; text-decoration: none; color: inherit; display: block; }
+  .svc::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: linear-gradient(to bottom, var(--red), var(--orange)); transition: height 0.4s; }
+  .svc:hover::before { height: 100%; }
+  .svc:hover { background: var(--mid); }
+  .svc-num { font-family: 'Rajdhani', sans-serif; font-size: 3rem; font-weight: 700; color: rgba(245,132,31,0.07); line-height: 1; margin-bottom: 14px; transition: color 0.3s; }
+  .svc:hover .svc-num { color: rgba(245,132,31,0.18); }
+  .svc-title { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 600; letter-spacing: 0.04em; color: #fff; margin-bottom: 10px; }
+  .svc-desc { font-size: 0.9rem; line-height: 1.72; color: var(--text-muted); }
+  .svc-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); opacity: 0; transition: opacity 0.25s; }
+  .svc:hover .svc-link { opacity: 1; }
+</style>
