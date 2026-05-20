@@ -26,6 +26,7 @@ function renderNav(activePage) {
     { href: 'skanowanie.html',   label: 'Skanowanie 3D', key: 'skan' },
     { href: 'fotogrametria.html',label: 'Fotogrametria', key: 'foto' },
     { href: 'druk.html',         label: 'Druk 3D',       key: 'druk' },
+    { href: 'realizacje.html',	 label: 'Nasze realizacje',       key: 'realizacje' },
     { href: 'kontakt.html',      label: 'Kontakt',       key: 'kontakt', cta: true },
   ];
   const links = pages.map(p => {

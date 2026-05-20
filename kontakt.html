@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt – Scan Expert</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    padding: 70px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Left col */
+  .contact-info-block { display: flex; flex-direction: column; gap: 0; }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 28px 30px;
+    background: var(--dark3);
+    border-left: 3px solid var(--orange);
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s, border-color 0.2s;
+    margin-bottom: 2px;
+  }
+  .contact-card:hover { background: var(--mid); border-color: var(--red); }
+  .contact-card-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, rgba(232,57,26,0.12), rgba(245,132,31,0.12));
+    border: 1px solid rgba(245,132,31,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .contact-card-icon svg { width: 20px; height: 20px; color: var(--orange); }
+  .contact-card-lbl {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+  .contact-card-val {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+
+  .why-us {
+    margin-top: 48px;
+  }
+  .why-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .why-list { display: flex; flex-direction: column; gap: 2px; }
+  .why-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    background: var(--dark3);
+    transition: background 0.2s;
+  }
+  .why-item:hover { background: var(--mid); }
+  .why-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .why-item p { font-size: 0.88rem; line-height: 1.6; color: var(--text-muted); }
+  .why-item strong { color: #fff; font-weight: 500; }
+
+  /* Right col – form */
+  .form-box {
+    background: var(--dark3);
+    border: 1px solid rgba(245,132,31,0.12);
+    padding: 44px 40px;
+  }
+  .form-box-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .form-box-sub {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .select-input {
+    background: var(--dark);
+    border: 1px solid rgba(245,132,31,0.15);
+    color: var(--text-muted);
+    padding: 12px 16px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    width: 100%;
+    appearance: none;
+    cursor: pointer;
+  }
+  .select-input:focus { border-color: rgba(245,132,31,0.5); }
+
+  .form-input, .form-textarea {
+    background: var(--dark);
+  }
+
+  .submit-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 6px;
+  }
+  .submit-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Map placeholder */
+  .map-section {
+    background: var(--dark2);
+    padding: 70px 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .map-placeholder {
+    margin-top: 40px;
+    background: var(--dark3);
+    border: 1px solid rgba(245,132,31,0.1);
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .map-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245,132,31,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,132,31,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .map-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .map-pin {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .map-pin svg { transform: rotate(45deg); width: 22px; height: 22px; color: #fff; }
+  .map-inner p {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.06em;
+  }
+  .map-inner span { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* FAQ strip */
+  .faq-section {
+    padding: 70px 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 48px;
+  }
+  .faq-item {
+    background: var(--dark3);
+    padding: 32px 30px;
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .faq-item:hover { background: var(--mid); }
+  .faq-q {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .faq-q::before {
+    content: 'Q';
+    font-size: 0.7rem;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding-top: 3px;
+    flex-shrink: 0;
+  }
+  .faq-a { font-size: 0.88rem; line-height: 1.72; color: var(--text-muted); padding-left: 18px; }
+</style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<main>
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-accent"></div>
+    <div class="page-label">Jesteśmy do dyspozycji</div>
+    <h1 class="page-title">Skontaktuj się <em>z nami</em></h1>
+    <p class="page-sub">Nasz zespół inżynierów budownictwa pomoże dobrać najlepsze rozwiązanie dla Twojego projektu. Odpowiemy na każde pytanie i przygotujemy bezpłatną wycenę.</p>
+  </div>
+
+  <!-- MAIN CONTACT LAYOUT -->
+  <div class="contact-layout reveal">
+
+    <!-- LEFT: info -->
+    <div>
+      <div class="section-label">Dane kontaktowe</div>
+      <h2 class="section-title" style="margin-bottom:28px;">Napisz lub <em>zadzwoń</em></h2>
+
+      <div class="contact-info-block">
+        <a href="mailto:biuro@scanexpert.pl" class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Adres e-mail</div>
+            <div class="contact-card-val">biuro@scanexpert.pl</div>
+          </div>
+        </a>
+
+        <a href="tel:536297099" class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5 19.79 19.79 0 0 1 1.61 2.83 2 2 0 0 1 3.6.65h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.15a16 16 0 0 0 6 6l1.56-1.56a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Telefon</div>
+            <div class="contact-card-val">536 297 099</div>
+          </div>
+        </a>
+
+        <div class="contact-card" style="cursor:default;">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Godziny pracy</div>
+            <div class="contact-card-val">Pon – Pt, 8:00–17:00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-us">
+        <div class="why-title">Dlaczego my?</div>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-dot"></div>
+            <p><strong>Firma prowadzona przez inżynierów budownictwa</strong> – rozumiemy potrzeby branży i mówimy językiem technicznym.</p>
+          </div>
+          <div class="why-item">
+            <div class="why-dot"></div>
+            <p><strong>Dwa topowe skanery Leica</strong> – najwyższa jakość danych, gwarantowana dokładność do 0,001 m na 60 m.</p>
+          </div>
+          <div class="why-item">
+            <div class="why-dot"></div>
+            <p><strong>Kompleksowa obsługa</strong> – od skanowania, przez modelowanie BIM, po druk 3D gotowej makiety w jednym miejscu.</p>
+          </div>
+          <div class="why-item">
+            <div class="why-dot"></div>
+            <p><strong>Szybka realizacja</strong> – inwentaryzacje, które tradycyjnie zajmują miesiące, wykonujemy w kilka dni.</p>
+          </div>
+          <div class="why-item">
+            <div class="why-dot"></div>
+            <p><strong>Indywidualne podejście</strong> – każdy projekt dopasowujemy do potrzeb i budżetu klienta.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div class="form-box">
+      <div class="form-box-title">Wyślij zapytanie</div>
+      <div class="form-box-sub">Opisz swój projekt, a my przygotujemy bezpłatną wycenę i skontaktujemy się z Tobą w ciągu 24 godzin.</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Imię</label>
+          <input class="form-input" type="text" placeholder="Jan">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nazwisko</label>
+          <input class="form-input" type="text" placeholder="Kowalski">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Adres e-mail</label>
+        <input class="form-input" type="email" placeholder="jan@firma.pl">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Telefon (opcjonalnie)</label>
+        <input class="form-input" type="tel" placeholder="+48 000 000 000">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Rodzaj usługi</label>
+        <select class="select-input">
+          <option value="" disabled selected>Wybierz usługę...</option>
+          <option>Skanowanie laserowe 3D</option>
+          <option>Inwentaryzacja architektoniczna / BIM</option>
+          <option>Fotogrametria & LiDAR (dron)</option>
+          <option>Druk 3D / makieta</option>
+          <option>Analiza inżynierska / ekspertyza</option>
+          <option>Cyfrowy bliźniak</option>
+          <option>Inne / nie wiem jeszcze</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Opis projektu</label>
+        <textarea class="form-textarea" placeholder="Opisz obiekt, zakres prac, oczekiwany format danych lub inne istotne szczegóły..."></textarea>
+      </div>
+
+      <div class="submit-row">
+        <button class="btn-primary" onclick="this.textContent='Wysłano ✓';this.style.opacity='0.7';this.disabled=true;">Wyślij zapytanie</button>
+        <p class="submit-note">Odpowiadamy w ciągu<br>24 godzin roboczych.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-section reveal">
+    <div class="section-label">Lokalizacja</div>
+    <h2 class="section-title">Działamy <em>na terenie całej Polski</em></h2>
+    <p class="section-body">Realizujemy projekty na terenie całego kraju. Skontaktuj się z nami, by omówić szczegóły dojazdu i logistyki dla Twojej inwestycji.</p>
+    <div class="map-placeholder">
+      <div class="map-inner">
+        <div class="map-pin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <p>Scan Expert</p>
+        <span>biuro@scanexpert.pl · 536 297 099</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section reveal">
+    <div class="section-label">Najczęstsze pytania</div>
+    <h2 class="section-title">Masz <em>pytania?</em></h2>
+    <p class="section-body">Zebraliśmy odpowiedzi na pytania, które słyszymy najczęściej. Jeśli nie znajdziesz odpowiedzi – napisz do nas!</p>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">Jak długo trwa skanowanie budynku?</div>
+        <p class="faq-a">Czas zależy od wielkości i złożoności obiektu. Pojedyncze mieszkanie lub kondygnację skanujemy w kilka godzin. Całe kamienice i budynki wielokondygnacyjne – w 1–2 dni robocze.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">W jakim formacie dostarczacie dane?</div>
+        <p class="faq-a">Dostosowujemy format do potrzeb klienta: chmura punktów (.e57, .las), rysunki .dwg/.dxf, model Revit (.rvt), siatka trójkątów (.obj, .stl) lub gotowa makieta fizyczna.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Czy możecie skanować zabytkowe obiekty?</div>
+        <p class="faq-a">Tak, to jedna z naszych specjalizacji. Skanowanie jest całkowicie bezinwazyjne – nie wymaga żadnego kontaktu z oryginalną powierzchnią obiektu zabytkowego.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Jaka jest dokładność skanerów Leica?</div>
+        <p class="faq-a">Nasze skanery naziemne Leica osiągają dokładność do 0,001 m na odległości 60 m. Skanery metrologiczne do pomiaru detali – dokładność do 0,01 mm.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Czy realizujecie projekty w całej Polsce?</div>
+        <p class="faq-a">Tak, działamy na terenie całej Polski. Koszty dojazdu wyceniamy indywidualnie dla każdego projektu. Skontaktuj się z nami, by otrzymać pełną wycenę.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Ile kosztuje skanowanie 3D?</div>
+        <p class="faq-a">Cena zależy od zakresu projektu, wielkości obiektu i oczekiwanego formatu danych. Każdą wycenę przygotowujemy indywidualnie – bezpłatnie, po krótkim omówieniu potrzeb.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="precision-strip">
+    <strong>Bezpłatna wycena w 24 godziny</strong>
+    <p>Wyślij nam opis projektu, a nasz zespół inżynierów przygotuje wycenę i odpowie na wszystkie pytania bez żadnych zobowiązań.</p>
+    <a href="mailto:biuro@scanexpert.pl" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">biuro@scanexpert.pl</a>
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+<script src="nav.js"></script>
+<script>
+  renderNav('kontakt');
+  renderFooter();
+  initReveal();
+</script>
+</body>
+</html>
