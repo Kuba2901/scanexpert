@@ -4,110 +4,400 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 
-// Pobieranie wszystkich realizacji z plików Markdown
 const allRealizacje = await getCollection('realizacje');
-
-// Sortowanie po ID (aby 01, 02, 03 układały się po kolei)
 allRealizacje.sort((a, b) => a.data.id.localeCompare(b.data.id));
 ---
 
 <Layout title="Realizacje" activePage="realizacje">
+
+  <!-- PAGE HERO -->
   <div class="page-hero">
     <div class="page-hero-accent"></div>
     <div class="page-label">Portfolio</div>
     <h1 class="page-title">Nasze <em>realizacje</em></h1>
-    <p class="page-sub">Prezentujemy wybrane projekty zrealizowane dla klientów w Łodzi i regionie...</p>
+    <p class="page-sub">
+      Prezentujemy wybrane projekty zrealizowane dla klientów w Łodzi i regionie.
+      Każda realizacja to precyzyjne skanowanie 3D, szczegółowa inwentaryzacja
+      i kompletna dokumentacja techniczna.
+    </p>
   </div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all">Wszystkie <span id="count-all"></span></button>
+  <!-- FILTER BAR -->
+  <!-- <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">
+      Wszystkie <span class="filter-count">({allRealizacje.length})</span>
+    </button>
     <button class="filter-btn" data-filter="scan">Skanowanie 3D</button>
     <button class="filter-btn" data-filter="dwg">Inwentaryzacja .dwg</button>
     <button class="filter-btn" data-filter="foto">Aerofotogrametria</button>
     <button class="filter-btn" data-filter="model">Modelowanie 3D</button>
+  </div> -->
+
+  <div class="results-count">
+    Wyświetlane realizacje: <span id="visible-count">{allRealizacje.length}</span> z {allRealizacje.length}
   </div>
 
-  <div class="results-count">Wyświetlane realizacje: <span id="visible-count">{allRealizacje.length}</span> z {allRealizacje.length}</div>
+  <!-- CASES GRID -->
+  <div class="cases-grid" id="cases-list">
+    {allRealizacje.map((item) => (
+      <article class="case-card reveal" data-tags={item.data.tags.join(' ')}>
 
-  <div class="cases-list" id="cases-list">
-    {allRealizacje.map((caseItem) => (
-      <div class="case-card reveal" data-tags={caseItem.data.tags.join(' ')}>
-        <div class="case-img">
-          <div class="case-img-inner" style="padding: 0; background: none;">
-            <Image 
-              src={caseItem.data.coverImage} 
-              alt={caseItem.data.alt} 
-              width={600} 
-              height={400} 
-              style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s;"
-            />
-          </div>
-          <div class="case-num-overlay">{caseItem.data.id}</div>
-        </div>
-        
+        <!-- IMAGE -->
+		<Image
+		src={item.data.coverImage}
+		alt={item.data.alt}
+		width={800}
+		height={520}
+		class="case-img"
+		/>
+		{/* <div class="case-img-overlay">
+		<span class="case-img-cta">
+			Zobacz realizację
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+			<line x1="5" y1="12" x2="19" y2="12"/>
+			<polyline points="12 5 19 12 12 19"/>
+			</svg>
+		</span>
+		</div> */}
+		<div class="case-num">{item.data.id}</div>
+
+        <!-- BODY -->
         <div class="case-body">
-          <div class="case-top">
-            <div class="case-index">{caseItem.data.title}</div>
-            <div class="case-address">{caseItem.data.address}</div>
-            <div class="case-city">{caseItem.data.city}</div>
-            <div class="case-tags">
-                {caseItem.data.tags.includes('scan') && <span class="tag tag-scan">Skanowanie 3D</span>}
-                {caseItem.data.tags.includes('dwg') && <span class="tag tag-dwg">Dokumentacja / .dwg</span>}
-                {caseItem.data.tags.includes('foto') && <span class="tag tag-foto">Aerofotogrametria</span>}
-                {caseItem.data.tags.includes('model') && <span class="tag tag-model">Modelowanie 3D</span>}
-            </div>
+          <div class="case-tags">
+            {item.data.tags.includes('scan') && (
+              <span class="tag tag-scan">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/>
+                </svg>
+                Skanowanie 3D
+              </span>
+            )}
+            {item.data.tags.includes('dwg') && (
+              <span class="tag tag-dwg">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                </svg>
+                Inwentaryzacja .dwg
+              </span>
+            )}
+            {item.data.tags.includes('foto') && (
+              <span class="tag tag-foto">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M2 12h20"/>
+                </svg>
+                Aerofotogrametria
+              </span>
+            )}
+            {item.data.tags.includes('model') && (
+              <span class="tag tag-model">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                </svg>
+                Modelowanie 3D
+              </span>
+            )}
           </div>
-          
-          <div class="case-bottom">
-            <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:0.06em;">{caseItem.data.description}</div>
-            <div class="case-arrow">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-          </div>
+
+          <p class="case-city">{item.data.city}</p>
+          <p class="case-desc">{item.data.description}</p>
         </div>
-      </div>
+
+      </article>
     ))}
 
-    <div class="no-results" id="no-results">Brak realizacji dla wybranego filtra.</div>
+    <p class="no-results" id="no-results">Brak realizacji dla wybranego filtra.</p>
   </div>
 
+  <!-- CTA -->
   <div class="precision-strip">
     <strong>Twój projekt może być następny</strong>
     <p>Skontaktuj się z nami, aby omówić zakres prac i otrzymać bezpłatną wycenę dopasowaną do Twojego obiektu.</p>
-    <a href="/kontakt" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Zapytaj o wycenę</a>
+    <a href="/scanexpert/kontakt" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Zapytaj o wycenę</a>
   </div>
+
 </Layout>
 
+<!-- ─────────────────────────────────────────────── SCRIPT ── -->
 <script>
-  const cards = document.querySelectorAll('.case-card');
-  const btns  = document.querySelectorAll('.filter-btn');
-  const countEl = document.getElementById('visible-count');
-  const noResults = document.getElementById('no-results');
+  const cards    = document.querySelectorAll<HTMLElement>('.case-card');
+  const btns     = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const countEl  = document.getElementById('visible-count');
+  const noResult = document.getElementById('no-results');
 
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
+      const filter = btn.dataset.filter ?? 'all';
+
       btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
       let visible = 0;
       cards.forEach(card => {
-        const tags = (card as HTMLElement).dataset.tags || '';
-        const show = filter === 'all' || tags.includes(filter);
+        const tags = card.dataset.tags ?? '';
+        const show = filter === 'all' || tags.split(' ').includes(filter);
         card.classList.toggle('hidden', !show);
         if (show) visible++;
       });
 
-      if(countEl) countEl.textContent = visible.toString();
-      if(noResults) noResults.classList.toggle('visible', visible === 0);
+      if (countEl)  countEl.textContent  = String(visible);
+      if (noResult) noResult.classList.toggle('visible', visible === 0);
     });
   });
 </script>
 
+<!-- ─────────────────────────────────────────────── STYLE ── -->
 <style>
-/* Opcjonalnie: lekki hover na prawdziwych zdjęciach w .case-card */
-.case-card:hover .case-img-inner img {
-    opacity: 1 !important;
-}
-/* Wklej tutaj brakujące style przypisane specyficznie tylko do tej podstrony (np. filtry, liczniki), a ogólne pozostaw w global.css */
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    padding: 36px 60px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .filter-btn {
+    background: var(--dark3);
+    border: 1px solid rgba(245, 132, 31, 0.15);
+    color: var(--text-muted);
+    padding: 8px 20px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: all 0.2s;
+  }
+  .filter-btn:hover {
+    border-color: rgba(245, 132, 31, 0.4);
+    color: var(--orange);
+  }
+  .filter-btn.active {
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    border-color: transparent;
+    color: #fff;
+  }
+  .filter-count { opacity: 0.65; }
+
+  /* ── COUNTER ── */
+  .results-count {
+    padding: 18px 60px 0;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+  .results-count span { color: var(--orange); font-weight: 600; }
+
+  /* ── GRID ── */
+  .cases-grid {
+    padding: 36px 60px 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── CARD ── */
+  .case-card {
+    background: var(--dark3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .case-card:hover { background: #222; }
+
+  /* left accent bar on hover */
+  .case-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: linear-gradient(to bottom, var(--red), var(--orange));
+    transition: height 0.4s ease;
+    z-index: 3;
+  }
+  .case-card:hover::before { height: 100%; }
+
+  /* ── IMAGE WRAP ── */
+  .case-img-wrap {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--dark2);
+    text-decoration: none;
+  }
+
+  .case-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.82;
+    transition: opacity 0.4s, transform 0.5s ease;
+  }
+  .case-card:hover .case-img {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+
+  /* dark gradient at bottom of image */
+  .case-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 40%,
+      rgba(13, 13, 13, 0.7) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* CTA overlay */
+  .case-img-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13, 13, 13, 0.45);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 2;
+  }
+  .case-card:hover .case-img-overlay { opacity: 1; }
+
+  .case-img-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    color: #fff;
+    padding: 10px 22px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transform: translateY(6px);
+    transition: transform 0.3s;
+  }
+  .case-card:hover .case-img-cta { transform: translateY(0); }
+
+  /* case number badge */
+  .case-num {
+    position: absolute;
+    bottom: 12px; right: 14px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.08);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+  .case-card:hover .case-num { color: rgba(245, 132, 31, 0.2); }
+
+  /* ── BODY ── */
+  .case-body {
+    padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  /* tags row */
+  .case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+  }
+  .tag-scan  { background: rgba(232,57,26,0.12);  border: 1px solid rgba(232,57,26,0.28);  color: #f07060; }
+  .tag-dwg   { background: rgba(245,132,31,0.10); border: 1px solid rgba(245,132,31,0.28); color: var(--orange); }
+  .tag-foto  { background: rgba(90,160,240,0.10); border: 1px solid rgba(90,160,240,0.28); color: #7ab8f5; }
+  .tag-model { background: rgba(120,200,140,0.10);border: 1px solid rgba(120,200,140,0.28);color: #88cc99; }
+
+  /* address */
+  .case-address {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    line-height: 1.2;
+    transition: color 0.2s;
+    display: block;
+  }
+  .case-address:hover,
+  .case-card:hover .case-address { color: var(--orange-light); }
+
+  .case-city {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-top: -4px;
+  }
+
+  .case-desc {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-top: 2px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 10px;
+  }
+
+  /* ── HIDDEN (filter) ── */
+  .case-card.hidden { display: none; }
+
+  /* ── NO RESULTS ── */
+  .no-results {
+    display: none;
+    grid-column: 1 / -1;
+    padding: 60px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .no-results.visible { display: block; }
+
+  /* ── FEATURED: first card spans 2 columns ── */
+  .cases-grid .case-card:first-child {
+    grid-column: span 2;
+  }
+  .cases-grid .case-card:first-child .case-img-wrap {
+    aspect-ratio: 16 / 7;
+  }
+  .cases-grid .case-card:first-child .case-address {
+    font-size: 1.45rem;
+  }
 </style>
