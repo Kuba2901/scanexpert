@@ -1,0 +1,106 @@
+---
+// src/pages/kontakt.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Kontakt – Umów się na wycenę" activePage="kontakt">
+  <div class="page-hero">
+    <div class="page-hero-accent"></div>
+    <div class="page-label">Jesteśmy do dyspozycji</div>
+    <h1 class="page-title">Skontaktuj się <em>z nami</em></h1>
+    <p class="page-sub">Nasz zespół inżynierów budownictwa pomoże dobrać najlepsze rozwiązanie dla Twojego projektu.</p>
+  </div>
+
+  <div class="contact-layout reveal">
+    <div>
+      <div class="section-label">Dane kontaktowe</div>
+      <h2 class="section-title" style="margin-bottom:28px;">Napisz lub <em>zadzwoń</em></h2>
+
+      <div class="contact-info-block">
+        <a href="mailto:biuro@scanexpert.pl" class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Adres e-mail</div>
+            <div class="contact-card-val">biuro@scanexpert.pl</div>
+          </div>
+        </a>
+
+        <a href="tel:536297099" class="contact-card">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5 19.79 19.79 0 0 1 1.61 2.83 2 2 0 0 1 3.6.65h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.15a16 16 0 0 0 6 6l1.56-1.56a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-card-lbl">Telefon</div>
+            <div class="contact-card-val">536 297 099</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="form-box">
+      <div class="form-box-title">Wyślij zapytanie</div>
+      <div class="form-box-sub">Opisz swój projekt, a my przygotujemy bezpłatną wycenę.</div>
+
+      <form id="contact-form">
+        <div class="form-group">
+          <label class="form-label">Imię i Nazwisko</label>
+          <input class="form-input" type="text" placeholder="Jan Kowalski" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Adres e-mail</label>
+          <input class="form-input" type="email" placeholder="jan@firma.pl" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Opis projektu</label>
+          <textarea class="form-textarea" placeholder="Opisz obiekt, zakres prac... " required></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn-primary" id="submit-btn">Wyślij zapytanie</button>
+          <p class="submit-note">Odpowiadamy w ciągu<br>24 godzin roboczych.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Dynamiczna obsługa formularza w Astro
+  const form = document.getElementById('contact-form');
+  const btn = document.getElementById('submit-btn');
+
+  if (form && btn) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      btn.textContent = 'Wysłano ✓';
+      (btn as HTMLButtonElement).style.opacity = '0.7';
+      (btn as HTMLButtonElement).disabled = true;
+    });
+  }
+</script>
+
+<style>
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; padding: 70px 60px; position: relative; z-index: 1; }
+  .contact-info-block { display: flex; flex-direction: column; gap: 0; }
+  .contact-card { display: flex; align-items: center; gap: 22px; padding: 28px 30px; background: var(--dark3); border-left: 3px solid var(--orange); text-decoration: none; color: var(--text); transition: background 0.2s, border-color 0.2s; margin-bottom: 2px; }
+  .contact-card:hover { background: var(--mid); border-color: var(--red); }
+  .contact-card-icon { width: 40px; height: 40px; background: linear-gradient(135deg, rgba(232,57,26,0.12), rgba(245,132,31,0.12)); border: 1px solid rgba(245,132,31,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%); }
+  .contact-card-icon svg { width: 20px; height: 20px; color: var(--orange); }
+  .contact-card-lbl { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; }
+  .contact-card-val { font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 600; color: #fff; letter-spacing: 0.04em; }
+
+  .form-box { background: var(--dark3); border: 1px solid rgba(245,132,31,0.12); padding: 44px 40px; }
+  .form-box-title { font-family: 'Rajdhani', sans-serif; font-size: 1.7rem; font-weight: 700; color: #fff; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .form-box-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6; }
+  .submit-row { display: flex; align-items: center; gap: 18px; margin-top: 6px; }
+  .submit-note { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+</style>
