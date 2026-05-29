@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import druk from "../assets/images/druk/druk-0.webp"
 ---
 
 <Layout title="Druk 3D – Scan Expert" activePage="druk">
@@ -24,8 +26,8 @@ import Layout from '../layouts/Layout.astro';
            src="/images/druk/wydruk-3d.jpg"
            ═══════════════════════════════════════ -->
       <div class="photo-single">
-        <img
-          src="/scanexpert/images/druk/druk-0.webp"
+        <Image
+          src={druk}
           alt="Wydruk 3D - fizyczny model budynku,"
           class="photo-img"
         />

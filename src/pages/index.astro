@@ -1,5 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import skan3 from "../assets/images/skan/skan-3.webp"
+import skan1 from "../assets/images/skan/skan-1.webp"
+import plan1 from "../assets/images/skan/plan-1.webp"
+import druk0 from "../assets/images/druk/druk-0.webp"
 ---
 
 <Layout
@@ -164,8 +169,9 @@ import Layout from "../layouts/Layout.astro";
 				style="position: relative; border-radius: 4px; overflow: hidden; aspect-ratio: 4/3;"
 			>
 				<!-- GŁÓWNE ZDJĘCIE POKAZOWE -->
-				<img
-					src="/scanexpert/images/skan/skan-3.webp"
+				 I
+				<Image
+					src={skan3}
 					alt="Chmura punktów skanowania 3D"
 					style="width: 100%; height: 100%; object-fit: cover;"
 				/>
@@ -188,8 +194,8 @@ import Layout from "../layouts/Layout.astro";
 		>
 			<a href="/scanexpert/skanowanie" class="svc">
 				<div class="svc-img-container">
-					<img
-						src="/scanexpert/images/skan/skan-1.webp"
+					<Image
+						src={skan1}
 						alt="Skanowanie Laserowe 3D"
 					/>
 				</div>
@@ -208,8 +214,8 @@ import Layout from "../layouts/Layout.astro";
 
 			<a href="/scanexpert/skanowanie" class="svc">
 				<div class="svc-img-container">
-					<img
-						src="/scanexpert/images/skan/plan-1.webp"
+					<Image
+						src={plan1}
 						alt="Skan 3D budynków"
 					/>
 				</div>
@@ -228,7 +234,7 @@ import Layout from "../layouts/Layout.astro";
 
 			<a href="/scanexpert/druk" class="svc">
 				<div class="svc-img-container">
-					<img src="/scanexpert/images/druk/druk-0.webp" alt="Druk 3D" />
+					<Image src={druk0} alt="Druk 3D" />
 				</div>
 				<div class="svc-content">
 					<div class="svc-num">03</div>

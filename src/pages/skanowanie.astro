@@ -1,5 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+import budynek1 from  "../assets/images/skan/budynek-1.jpg";
+import skan1 from  "../assets/images/skan/skan-1.webp";
+import skan2 from  "../assets/images/skan/skan-2.webp";
+import skan3 from  "../assets/images/skan/skan-3.webp";
+import skan4 from  "../assets/images/skan/skan-4.webp";
+import metrologia1 from  "../assets/images/skan/metrologia-1.webp";
+import metrologia2 from  "../assets/images/skan/metrologia-2.webp";
+import detal1 from  "../assets/images/skan/detal-1.jpg";
+import sztuk0 from  "../assets/images/skan/sztuk-0.webp";
+
 ---
 
 <Layout title="Skanowanie 3D Obiektów Budowlanych – Scan Expert" activePage="skan">
@@ -27,40 +39,34 @@ import Layout from '../layouts/Layout.astro';
 
     <p style="margin-top: 32px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.8;">Nasza firma, prowadzona przez inżynierów budownictwa, oferuje kompleksowe usługi skanowania 3D budynków, umożliwiające precyzyjne odwzorowanie całych obiektów oraz ich najdrobniejszych detali architektonicznych. Dzięki zaawansowanej technologii skanowania 3D i fotogrametrii, zapewniamy dokładne szkice inwentaryzacyjne, dokumentację techniczną, modele cyfrowe oraz wiele innych rozwiązań wspierających procesy budowlane i projektowe.</p>
   </div>
-
-  <!-- ═══════════════════════════════════════
-       GALERIA – 4 zdjęcia budynków
-       Zastąp src="..." ścieżką do swojego zdjęcia,
-       np. src="/scanexpert/images/skan/budynek-1.jpg"
-       ═══════════════════════════════════════ -->
   <div class="photo-grid-4 reveal">
     <div class="photo-item photo-item--tall">
-      <img
-        src="/scanexpert/images/skan/skan-1.webp"
+      <Image
+        src={skan1}
         alt="Skanowanie 3D budynku - widok fasady"
         class="photo-img"
       />
       <div class="photo-caption">Ortogonalny widok elewacji w formie chmury punktów z mapowaniem wysokości</div>
     </div>
     <div class="photo-item">
-      <img
-        src="/scanexpert/images/skan/skan-2.webp"
+      <Image
+        src={skan2}
         alt="Skanowanie 3D kamienicy"
         class="photo-img"
       />
       <div class="photo-caption">Rzut poziomy kondygnacji z naniesioną trajektorią i stanowiskami skanera</div>
     </div>
     <div class="photo-item">
-      <img
-        src="/scanexpert/images/skan/skan-3.webp"
+      <Image
+        src={skan3}
         alt="Skanowanie 3D wnętrza budynku"
         class="photo-img"
       />
       <div class="photo-caption">Wysokorozdzielczy skan 3D w skali szarości (intensywność odbicia) obrazujący złożone konstrukcje i rusztowania</div>
     </div>
     <div class="photo-item">
-      <img
-        src="/scanexpert/images/skan/skan-4.webp"
+      <Image
+        src={skan4}
         alt="Chmura punktów budynku"
         class="photo-img"
       />
@@ -128,20 +134,20 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- ═══════════════════════════════════════
              GALERIA – 2 zdjęcia skanów metrologicznych
-             np. src="/scanexpert/images/skan/metrologia-1.jpg"
+             np. src={metrologia1}
              ═══════════════════════════════════════ -->
         <div class="photo-pair">
           <div class="photo-pair-item">
-            <img
-              src="/scanexpert/images/skan/metrologia-1.webp"
+            <Image
+              src={metrologia1}
               alt="Skanowanie metrologiczne - analiza odkształceń"
               class="photo-img"
             />
             <div class="photo-caption">Wysokorozdzielczy model 3D siatki trójkątów dla zabytkowego okucia</div>
           </div>
           <div class="photo-pair-item">
-            <img
-              src="/scanexpert/images/skan/metrologia-2.webp"
+            <Image
+              src={metrologia2}
               alt="Skaner metrologiczny w działaniu"
               class="photo-img"
             />
@@ -156,11 +162,11 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- ═══════════════════════════════════════
              1 zdjęcie – skan małego obiektu / detalu
-             np. src="/scanexpert/images/skan/detal-1.jpg"
+             np. src={detal1}
              ═══════════════════════════════════════ -->
         <div class="photo-single">
-          <img
-            src="/scanexpert/images/skan/sztuk-0.webp"
+          <Image
+            src={sztuk0}
             alt="Skan 3D małego obiektu – detal sztukatorski"
             class="photo-img"
           />

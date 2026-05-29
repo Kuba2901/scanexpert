@@ -1,5 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+import fotogrametria0 from "../assets/images/fotogrametria/fotogrametria-0.webp"
+import fotogrametria1 from "../assets/images/fotogrametria/fotogrametria-1.webp"
+import fotogrametria2 from "../assets/images/fotogrametria/fotogrametria-2.webp"
+import fotogrametria3 from "../assets/images/fotogrametria/fotogrametria-3.webp"
 ---
 
 <Layout title="Fotogrametria z drona i skanowanie LiDAR – Scan Expert" activePage="foto">
@@ -26,32 +32,32 @@ import Layout from '../layouts/Layout.astro';
          ═══════════════════════════════════════ -->
     <div class="photo-grid-foto">
       <div class="photo-item photo-item--featured">
-        <img
-          src="/scanexpert/images/fotogrametria/fotogrametria-0.webp"
+        <Image
+          src={fotogrametria0}
           alt="Lot drona nad budynkiem – fotogrametria"
           class="photo-img"
         />
         <div class="photo-caption">Fotogrametria z powietrza</div>
       </div>
       <div class="photo-item">
-        <img
-          src="/scanexpert/images/fotogrametria/fotogrametria-1.webp"
+        <Image
+          src={fotogrametria1}
           alt="Ortofotoplan budynku"
           class="photo-img"
         />
         <div class="photo-caption">Ortofotoplan</div>
       </div>
       <div class="photo-item">
-        <img
-          src="/scanexpert/images/fotogrametria/fotogrametria-2.webp"
+        <Image
+          src={fotogrametria2}
           alt="Model 3D budynku z fotogrametrii"
           class="photo-img"
         />
         <div class="photo-caption">Model 3D z fotogrametrii</div>
       </div>
       <div class="photo-item">
-        <img
-          src="/scanexpert/images/fotogrametria/fotogrametria-3.webp"
+        <Image
+          src={fotogrametria3}
           alt="Dron podczas lotu inspekcyjnego"
           class="photo-img"
         />
