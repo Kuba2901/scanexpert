@@ -107,6 +107,18 @@ nav {
 .nav-cta::after { display: none !important; }
 .nav-cta.active { opacity: 0.85; }
 
+/* ── HAMBURGER ── */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  padding: 4px;
+}
+
 /* ── PAGE WRAPPER ── */
 main {
   flex: 1;
@@ -625,3 +637,137 @@ footer {
 /* ── REVEAL ── */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.visible { opacity: 1; transform: none; }
+
+/* =========================================
+   RESPONSYWNOŚĆ (MEDIA QUERIES)
+   ========================================= */
+
+/* Tablety i mniejsze laptopy (do 1024px) */
+@media (max-width: 1024px) {
+  .hero, .content, .services, .use-cases, .spec-full, .contact-layout, .cases-grid, .filter-bar, .results-count {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+  
+  .cases-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Telefony (do 768px) */
+@media (max-width: 768px) {
+  /* NAWIGACJA - WIDOK DROPDOWN */
+  nav {
+    flex-direction: row !important;
+    justify-content: space-between;
+    position: relative;
+    padding: 15px 20px !important;
+  }
+  
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--dark3, #1a1a1a);
+    flex-direction: column !important;
+    padding: 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 2px solid var(--orange);
+    z-index: 999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 18px !important;
+    font-size: 1.1rem !important;
+  }
+
+  /* Ciasne marginesy na mobile */
+  .hero, .content, .services, .use-cases, .spec-full, .contact-layout, .cases-grid, .filter-bar, .results-count {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+
+  /* Spłaszczanie siatek do 1 kolumny */
+  .two-col, 
+  .grid-2, 
+  .services-grid, 
+  .use-grid, 
+  .spec-cols, 
+  .content-split, 
+  .contact-layout,
+  .photo-pair,
+  .check-list {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  /* Portfolio (Realizacje) w 1 kolumnie */
+  .cases-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cases-grid .case-card:first-child {
+    grid-column: span 1 !important;
+  }
+  .cases-grid .case-card:first-child .case-img-wrap {
+    aspect-ratio: 4 / 3 !important;
+  }
+
+  /* Uproszczenie skomplikowanych galerii zdjęć */
+  .photo-grid-4, .photo-grid-foto {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    gap: 10px !important;
+  }
+  .photo-item--tall, .photo-item--featured {
+    grid-row: span 1 !important;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Optymalizacja tekstów i tła */
+  .hero-title {
+    font-size: 2.8rem !important;
+  }
+  .hero-bg {
+    display: none !important;
+  }
+  .precision-strip {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px !important;
+    gap: 20px;
+  }
+
+  /* NAPRAWA STOPKI NA MOBILE */
+  footer {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 16px !important;
+    padding: 40px 20px !important;
+  }
+  
+  .footer-logo, .footer-copy {
+    width: 100%;
+    word-wrap: break-word;
+  }
+}
