@@ -1,9 +1,9 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
-  title: string;
-  activePage: string;
+	title: string;
+	activePage: string;
 }
 
 const { title, activePage } = Astro.props;
@@ -30,68 +30,128 @@ const LOGO_SVG = `<svg width="42" height="42" viewBox="0 0 80 80" fill="none" xm
 </svg>`;
 
 const pages = [
-  { href: '/scanexpert',            label: 'Start',           key: 'home' },
-  { href: '/scanexpert/skanowanie',   label: 'Skanowanie 3D',   key: 'skan' },
-  { href: '/scanexpert/fotogrametria',label: 'Fotogrametria',   key: 'foto' },
-  { href: '/scanexpert/druk',         label: 'Druk 3D',         key: 'druk' },
-  { href: '/scanexpert/realizacje',   label: 'Nasze realizacje',key: 'realizacje' },
-  { href: '/scanexpert/kontakt',      label: 'Kontakt',         key: 'kontakt', cta: true },
+	{ href: "/scanexpert", label: "Start", key: "home" },
+	{ href: "/scanexpert/skanowanie", label: "Skanowanie 3D", key: "skan" },
+	{ href: "/scanexpert/fotogrametria", label: "Fotogrametria", key: "foto" },
+	{ href: "/scanexpert/druk", label: "Druk 3D", key: "druk" },
+	{
+		href: "/scanexpert/realizacje",
+		label: "Nasze realizacje",
+		key: "realizacje",
+	},
+	{
+		href: "/scanexpert/kontakt",
+		label: "Kontakt",
+		key: "kontakt",
+		cta: true,
+	},
 ];
 ---
 
 <!doctype html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} – Scan Expert</title>
-  </head>
-  <body>
-    
-    <nav>
-      <a class="nav-logo" href="/scanexpert">
-        <!-- <Fragment set:html={LOGO_SVG} /> -->
-        <div class="nav-logo-text"><span class="r">SCAN</span> <span class="o">EXPERT</span></div>
-      </a>
-      <ul class="nav-links">
-        {pages.map(p => (
-          <li>
-            <a href={p.href} class:list={[p.key === activePage ? 'active' : '', p.cta ? 'nav-cta' : '']}>
-              {p.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title} - Scan Expert</title>
+	</head>
+	<body>
+		<nav>
+			<a class="nav-logo" href="/scanexpert">
+				<div class="nav-logo-text">
+					<span class="r">SCAN</span>
+					<span class="o">EXPERT</span>
+				</div>
+			</a>
 
-    <main>
-      <slot />
-    </main>
+			<button id="mobile-menu-btn" class="hamburger" aria-label="Menu">
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path d="M4 6h16M4 12h16M4 18h16"></path>
+				</svg>
+			</button>
 
-	<div class="precision-strip">
-		<strong>Inżynierskie podejście do każdego projektu</strong>
-		<p>Nasz zespół ekspertów pomoże Ci wybrać najlepsze rozwiązania dla Twoich potrzeb, oferując wsparcie na każdym etapie procesu.</p>
-		<a href="/scanexpert/kontakt" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Skontaktuj się</a>
-	</div>
+			<ul class="nav-links" id="nav-links">
+				{
+					pages.map((p) => (
+						<li>
+							<a
+								href={p.href}
+								class:list={[
+									p.key === activePage ? "active" : "",
+									p.cta ? "nav-cta" : "",
+								]}
+							>
+								{p.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
 
-    <footer>
-      <div class="footer-logo"><span class="r">SCAN</span> <span class="o">EXPERT</span></div>
-      <div class="footer-copy">© 2025 Scan Expert · Nowy wymiar budownictwa</div>
-      <div style="font-size:0.78rem;color:var(--text-muted)">biuro@scanexpert.pl · 536 297 099</div>
-    </footer>
+		<main>
+			<slot />
+		</main>
 
-    <script>
-      // Globalna logika animacji ujawniania sekcji (stary initReveal)
-      const initReveal = () => {
-        const els = document.querySelectorAll('.reveal');
-        const obs = new IntersectionObserver(entries => {
-          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-        }, { threshold: 0.08 });
-        els.forEach(el => obs.observe(el));
-      }
-      
-      // Uruchomienie skryptu przy ładowaniu strony
-      initReveal();
-    </script>
-  </body>
+		<div class="precision-strip">
+			<strong>Inżynierskie podejście do każdego projektu</strong>
+			<p>
+				Nasz zespół ekspertów pomoże Ci wybrać najlepsze rozwiązania dla
+				Twoich potrzeb, oferując wsparcie na każdym etapie procesu.
+			</p>
+			<a
+				href="/scanexpert/kontakt"
+				class="btn-primary"
+				style="white-space:nowrap;flex-shrink:0;">Skontaktuj się</a
+			>
+		</div>
+
+		<footer>
+			<div class="footer-logo">
+				<span class="r">SCAN</span>
+				<span class="o">EXPERT</span>
+			</div>
+			<div class="footer-copy">
+				© 2025 Scan Expert · Nowy wymiar budownictwa
+			</div>
+			<div style="font-size:0.78rem;color:var(--text-muted)">
+				biuro@scanexpert.pl · 536 297 099
+			</div>
+		</footer>
+
+		<script>
+			const menuBtn = document.getElementById('mobile-menu-btn');
+			const navLinks = document.getElementById('nav-links');
+
+			if (menuBtn && navLinks) {
+			menuBtn.addEventListener('click', () => {
+				navLinks.classList.toggle('open');
+			});
+			}
+			
+			const initReveal = () => {
+				const els = document.querySelectorAll(".reveal");
+				const obs = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((e) => {
+							if (e.isIntersecting) {
+								e.target.classList.add("visible");
+								obs.unobserve(e.target);
+							}
+						});
+					},
+					{ threshold: 0.08 },
+				);
+				els.forEach((el) => obs.observe(el));
+			};
+
+			// Uruchomienie skryptu przy ładowaniu strony
+			initReveal();
+		</script>
+	</body>
 </html>
