@@ -15,6 +15,50 @@ import Layout from '../layouts/Layout.astro';
     <h2 class="section-title">Fotogrametria <em>z drona</em></h2>
     <p class="section-body">Nasza firma specjalizuje się w zaawansowanych technologiach skanowania 3D budynków. Fotogrametria z dronem polega na zbieraniu wysokiej jakości zdjęć z powietrza, które następnie przetwarzane są w dokładne modele 3D. Dzięki tej metodzie możemy tworzyć szczegółowe obrazy terenu, infrastruktury oraz budynków z wyjątkową dokładnością.</p>
 
+    <!-- ═══════════════════════════════════════
+         GALERIA – 4 zdjęcia fotogrametryczne
+         Układ: 1 duże po lewej + 3 mniejsze po prawej
+         Zastąp src ścieżkami, np.:
+           /images/foto/dron-lot-1.jpg
+           /images/foto/ortofotoplan-1.jpg
+           /images/foto/model-3d-budynek.jpg
+           /images/foto/dron-lot-2.jpg
+         ═══════════════════════════════════════ -->
+    <div class="photo-grid-foto">
+      <div class="photo-item photo-item--featured">
+        <img
+          src="/scanexpert/images/fotogrametria/fotogrametria-0.png"
+          alt="Lot drona nad budynkiem – fotogrametria"
+          class="photo-img"
+        />
+        <div class="photo-caption">Fotogrametria z powietrza</div>
+      </div>
+      <div class="photo-item">
+        <img
+          src="/scanexpert/images/fotogrametria/fotogrametria-1.png"
+          alt="Ortofotoplan budynku"
+          class="photo-img"
+        />
+        <div class="photo-caption">Ortofotoplan</div>
+      </div>
+      <div class="photo-item">
+        <img
+          src="/scanexpert/images/fotogrametria/fotogrametria-2.png"
+          alt="Model 3D budynku z fotogrametrii"
+          class="photo-img"
+        />
+        <div class="photo-caption">Model 3D z fotogrametrii</div>
+      </div>
+      <div class="photo-item">
+        <img
+          src="/scanexpert/images/fotogrametria/fotogrametria-3.png"
+          alt="Dron podczas lotu inspekcyjnego"
+          class="photo-img"
+        />
+        <div class="photo-caption">Lot inspekcyjny UAV</div>
+      </div>
+    </div>
+
     <div class="grid-2" style="margin-top: 48px;">
       <div>
         <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:600;color:#fff;margin-bottom:16px;">Zalety fotogrametrii z użyciem drona:</h3>
@@ -66,12 +110,6 @@ import Layout from '../layouts/Layout.astro';
       <p style="margin-top: 24px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.8;">Nasza firma łączy wiedzę inżynierską z nowoczesnymi technologiami, dostarczając niezawodne rozwiązania w zakresie inwentaryzacji i dokumentacji budowlanej. Nasze opracowania wspierają realizację projektów budowlanych, konserwatorskich i modernizacyjnych, pomagając podejmować trafne decyzje na każdym etapie inwestycji.</p>
     </div>
   </div>
-
-  <div class="precision-strip">
-    <strong>Inżynierskie podejście do każdego projektu</strong>
-    <p>Nasz zespół ekspertów pomoże Ci wybrać najlepsze rozwiązania dla Twoich potrzeb, oferując wsparcie na każdym etapie procesu.</p>
-    <a href="/scanexpert/kontakt" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Zapytaj o wycenę</a>
-  </div>
 </Layout>
 
 <style>
@@ -80,4 +118,54 @@ import Layout from '../layouts/Layout.astro';
   .card:hover { background: var(--mid); }
   .card-desc { font-size: 0.88rem; line-height: 1.75; color: var(--text-muted); margin-top: 8px; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+  /* ── PHOTO COMPONENTS ── */
+  .photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, opacity 0.3s;
+    opacity: 0.88;
+  }
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 16px;
+    background: linear-gradient(to top, rgba(13,13,13,0.9), transparent);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  /* ── foto gallery: 1 big left + 3 right ── */
+  /*
+     [ featured (tall, left) ] [ top-right    ]
+     [ featured (tall, left) ] [ mid-right    ]
+     [ featured (tall, left) ] [ bottom-right ]
+  */
+  .photo-grid-foto {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: repeat(3, 200px);
+    gap: 3px;
+    margin-top: 40px;
+  }
+
+  .photo-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark3);
+  }
+  .photo-item:hover .photo-img  { transform: scale(1.04); opacity: 1; }
+  .photo-item:hover .photo-caption { opacity: 1; transform: translateY(0); }
+
+  /* featured spans all 3 rows */
+  .photo-item--featured {
+    grid-row: span 3;
+  }
 </style>

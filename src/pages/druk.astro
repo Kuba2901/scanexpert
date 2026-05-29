@@ -17,9 +17,19 @@ import Layout from '../layouts/Layout.astro';
         <h2 class="section-title">Jak to <em>działa?</em></h2>
         <p class="section-body">Druk 3D to proces wytwarzania trójwymiarowych, fizycznych obiektów na podstawie zaprojektowanego komputerowo modelu lub zeskanowanego fizycznego obiektu. Dzięki tej technologii jesteśmy w stanie stworzyć makietę budynku, prototyp dowolnego, dostarczonego nam, elementu lub odtworzyć detal sztukatorski w sposób bezinwazyjny. Wykonujemy również wydruki projektów REVIT, projektów inżynierskich CAD, czy siatek trójkątów.</p>
       </div>
-      <div>
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:16px;">Wydruki 3D budynków i detali</h3>
-        <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;">Dzięki naszym usługom możliwe jest również tworzenie fizycznych modeli budynków lub ich elementów za pomocą wydruków 3D. Skanowanie 3D umożliwia wierne odwzorowanie zarówno całych konstrukcji, jak i drobnych detali architektonicznych z niezwykłą precyzją. Wydruki te mogą służyć do wizualizacji projektów, analiz technicznych lub celów edukacyjnych.</p>
+
+      <!-- ═══════════════════════════════════════
+           1 zdjęcie – wydruk 3D / gotowy model
+           Zastąp src ścieżką, np.:
+           src="/images/druk/wydruk-3d.jpg"
+           ═══════════════════════════════════════ -->
+      <div class="photo-single">
+        <img
+          src="/scanexpert/images/druk/druk-0.jpg"
+          alt="Wydruk 3D - fizyczny model budynku,"
+          class="photo-img"
+        />
+        <div class="photo-caption">Fizyczny model wykonany w technologii FFF</div>
       </div>
     </div>
   </div>
@@ -82,4 +92,48 @@ import Layout from '../layouts/Layout.astro';
 
   .spec-full { margin-top: 20px; padding: 70px 60px; position: relative; z-index: 1; }
   .spec-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+  /* ── PHOTO COMPONENTS ── */
+  .photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, opacity 0.3s;
+    opacity: 0.88;
+  }
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 16px;
+    background: linear-gradient(to top, rgba(13,13,13,0.9), transparent);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  /* single wide photo – fills the column, 4:3 ratio */
+  .photo-single {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark3);
+    aspect-ratio: 4 / 3;
+    /* subtle orange corner accent */
+    outline: 1px solid rgba(245,132,31,0.12);
+  }
+  .photo-single::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--red), var(--orange));
+    z-index: 1;
+  }
+  .photo-single:hover .photo-img { transform: scale(1.04); opacity: 1; }
+  .photo-single:hover .photo-caption { opacity: 1; transform: translateY(0); }
 </style>

@@ -28,6 +28,46 @@ import Layout from '../layouts/Layout.astro';
     <p style="margin-top: 32px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.8;">Nasza firma, prowadzona przez inżynierów budownictwa, oferuje kompleksowe usługi skanowania 3D budynków, umożliwiające precyzyjne odwzorowanie całych obiektów oraz ich najdrobniejszych detali architektonicznych. Dzięki zaawansowanej technologii skanowania 3D i fotogrametrii, zapewniamy dokładne szkice inwentaryzacyjne, dokumentację techniczną, modele cyfrowe oraz wiele innych rozwiązań wspierających procesy budowlane i projektowe.</p>
   </div>
 
+  <!-- ═══════════════════════════════════════
+       GALERIA – 4 zdjęcia budynków
+       Zastąp src="..." ścieżką do swojego zdjęcia,
+       np. src="/scanexpert/images/skan/budynek-1.jpg"
+       ═══════════════════════════════════════ -->
+  <div class="photo-grid-4 reveal">
+    <div class="photo-item photo-item--tall">
+      <img
+        src="/scanexpert/images/skan/skan-1.png"
+        alt="Skanowanie 3D budynku - widok fasady"
+        class="photo-img"
+      />
+      <div class="photo-caption">Ortogonalny widok elewacji w formie chmury punktów z mapowaniem wysokości</div>
+    </div>
+    <div class="photo-item">
+      <img
+        src="/scanexpert/images/skan/skan-2.png"
+        alt="Skanowanie 3D kamienicy"
+        class="photo-img"
+      />
+      <div class="photo-caption">Rzut poziomy kondygnacji z naniesioną trajektorią i stanowiskami skanera</div>
+    </div>
+    <div class="photo-item">
+      <img
+        src="/scanexpert/images/skan/skan-3.png"
+        alt="Skanowanie 3D wnętrza budynku"
+        class="photo-img"
+      />
+      <div class="photo-caption">Wysokorozdzielczy skan 3D w skali szarości (intensywność odbicia) obrazujący złożone konstrukcje i rusztowania</div>
+    </div>
+    <div class="photo-item">
+      <img
+        src="/scanexpert/images/skan/skan-4.png"
+        alt="Chmura punktów budynku"
+        class="photo-img"
+      />
+      <div class="photo-caption">Analiza odchyłek i płaskości - gęsta chmura punktów z zastosowaniem mapy barwnej.</div>
+    </div>
+  </div>
+
   <div class="content reveal" style="background: var(--dark2);">
     <div class="two-col">
       <div>
@@ -84,19 +124,50 @@ import Layout from '../layouts/Layout.astro';
     <div class="two-col" style="margin-top: 48px;">
       <div>
         <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:600;color:#fff;margin-bottom:12px;">Analizy w budownictwie</h3>
-        <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;">Dzięki zastosowaniu skanerów klasy metrologicznej jesteśmy w stanie tworzyć ultra-dokładne modele w celu analizy np. wyboczenia, poszerzenia rys na całej ich długości, czy innych odchyleń z wykorzystaniem np. metody elementów skończonych. Skaner posiada dokładność liczoną w setnych częściach milimetrów.</p>
+        <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;margin-bottom:28px;">Dzięki zastosowaniu skanerów klasy metrologicznej jesteśmy w stanie tworzyć ultra-dokładne modele w celu analizy np. wyboczenia, poszerzenia rys na całej ich długości, czy innych odchyleń z wykorzystaniem np. metody elementów skończonych. Skaner posiada dokładność liczoną w setnych częściach milimetrów.</p>
+
+        <!-- ═══════════════════════════════════════
+             GALERIA – 2 zdjęcia skanów metrologicznych
+             np. src="/scanexpert/images/skan/metrologia-1.jpg"
+             ═══════════════════════════════════════ -->
+        <div class="photo-pair">
+          <div class="photo-pair-item">
+            <img
+              src="/scanexpert/images/skan/metrologia-1.png"
+              alt="Skanowanie metrologiczne - analiza odkształceń"
+              class="photo-img"
+            />
+            <div class="photo-caption">Wysokorozdzielczy model 3D siatki trójkątów dla zabytkowego okucia</div>
+          </div>
+          <div class="photo-pair-item">
+            <img
+              src="/scanexpert/images/skan/metrologia-2.png"
+              alt="Skaner metrologiczny w działaniu"
+              class="photo-img"
+            />
+            <div class="photo-caption">Cyfrowy model 3D narzędzia pomiarowego przygotowany do analizy metrologicznej i weryfikacji odchyłek</div>
+          </div>
+        </div>
       </div>
+
       <div>
         <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:600;color:#fff;margin-bottom:12px;">Skanowanie detali sztukatorskich</h3>
-        <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;">Zabytki architektoniczne często zdobione są wyjątkowymi detalami sztukatorskimi, które wymagają szczególnej uwagi podczas konserwacji i renowacji. Nasze skanowanie 3D pozwala na stworzenie dokładnych modeli cyfrowych tych elementów, co ułatwia proces ich odtworzenia. Dzięki naszym usługom możemy pomóc w zachowaniu dziedzictwa kulturowego, oferując precyzyjne archiwizowanie elementów, które mogą być trudne do odtworzenia w przyszłości.</p>
+        <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;margin-bottom:28px;">Zabytki architektoniczne często zdobione są wyjątkowymi detalami sztukatorskimi, które wymagają szczególnej uwagi podczas konserwacji i renowacji. Nasze skanowanie 3D pozwala na stworzenie dokładnych modeli cyfrowych tych elementów, co ułatwia proces ich odtworzenia. Dzięki naszym usługom możemy pomóc w zachowaniu dziedzictwa kulturowego, oferując precyzyjne archiwizowanie elementów, które mogą być trudne do odtworzenia w przyszłości.</p>
+
+        <!-- ═══════════════════════════════════════
+             1 zdjęcie – skan małego obiektu / detalu
+             np. src="/scanexpert/images/skan/detal-1.jpg"
+             ═══════════════════════════════════════ -->
+        <div class="photo-single">
+          <img
+            src="/scanexpert/images/skan/sztuk-0.png"
+            alt="Skan 3D małego obiektu – detal sztukatorski"
+            class="photo-img"
+          />
+          <div class="photo-caption">Gęsta chmura punktów odwzorowująca popiersie - precyzyjna archiwizacja detalu sztukatorskiego</div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="precision-strip">
-    <strong>Inżynierskie podejście do każdego projektu</strong>
-    <p>Nasz zespół ekspertów pomoże Ci wybrać najlepsze rozwiązania dla Twoich potrzeb, oferując wsparcie na każdym etapie procesu.</p>
-    <a href="/scanexpert/kontakt" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">Skontaktuj się</a>
   </div>
 </Layout>
 
@@ -113,4 +184,86 @@ import Layout from '../layouts/Layout.astro';
   .check-item:hover { background: var(--mid); }
   .check-item svg { color: var(--orange); flex-shrink: 0; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+  /* ── PHOTO COMPONENTS ── */
+
+  /* shared image base */
+  .photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, opacity 0.3s;
+    opacity: 0.88;
+  }
+
+  /* caption bar that slides up on hover */
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 16px;
+    background: linear-gradient(to top, rgba(13,13,13,0.9), transparent);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  /* ── 4-photo asymmetric grid ── */
+  /* Layout:
+     [ tall (spans 2 rows) ] [ top-right ]
+     [ tall (spans 2 rows) ] [ bottom-right-1 ] [ bottom-right-2 ]
+  */
+  .photo-grid-4 {
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 3px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .photo-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark3);
+  }
+  .photo-item:hover .photo-img { transform: scale(1.04); opacity: 1; }
+  .photo-item:hover .photo-caption { opacity: 1; transform: translateY(0); }
+
+  /* first item spans both rows */
+  .photo-item--tall {
+    grid-row: span 2;
+  }
+
+  /* ── side-by-side pair (for metrological scans) ── */
+  .photo-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    margin-top: 20px;
+  }
+  .photo-pair-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark3);
+    aspect-ratio: 4 / 3;
+  }
+  .photo-pair-item:hover .photo-img { transform: scale(1.04); opacity: 1; }
+  .photo-pair-item:hover .photo-caption { opacity: 1; transform: translateY(0); }
+
+  /* ── single wide photo (small object scan) ── */
+  .photo-single {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark3);
+    aspect-ratio: 16 / 9;
+    margin-top: 20px;
+  }
+  .photo-single:hover .photo-img { transform: scale(1.04); opacity: 1; }
+  .photo-single:hover .photo-caption { opacity: 1; transform: translateY(0); }
 </style>
